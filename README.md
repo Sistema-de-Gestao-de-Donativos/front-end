@@ -1,2 +1,7 @@
-# gestao-abrigos-adocoes
-Trabalho prático desenvolvido para a disciplina de Prática em Engenharia de Software.
+# Sistema de Gestão de Donativos
+
+## Diagrama dos microserviços
+
+A arquitetura será baseada em microserviços conforme o diagrama de alto nível a seguir:
+
+![alt text](docs/arquitetura-microservicos.png)
