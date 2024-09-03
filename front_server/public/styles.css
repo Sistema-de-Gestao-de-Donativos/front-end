@@ -1,0 +1,484 @@
+.hp-logo {
+    width: max(3.2vw, 32px);
+    height: max(3.2vw, 32px);
+    margin-left: 0.85vw;
+}
+
+header {
+    background-image: linear-gradient(to bottom, #8CBCD6, #9DC5DB, #AED0E0, #BFD9E5);
+    display: flex;
+    align-items: center;
+    height: max(3.9vw, 55px);
+    width: 100%;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: max(1.2vw, 12px);
+    z-index: 9998;
+}
+
+body {
+    font-family: "Verdana", "Tahoma", "Arial";
+    height: 100%;
+    text-align: justify;
+    word-wrap: normal;
+    white-space: normal;
+}
+
+main {
+    padding: 0 1vw;
+    font-size: max(1.05vw, 14px);
+}
+
+.page-title {
+    font-size: max(1.35vw, 10px) !important;
+    margin-left: 1vw;
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 0.9vw;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #0D1315;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+    text-underline-offset: max(1.4vw, 22px);
+    cursor: pointer;
+}
+
+header img,
+header h1.page-title,
+header nav {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.5vw;
+}
+
+h2 {
+    font-size: max(1.4vw, 18px);
+    text-decoration: underline;
+}
+
+footer {
+    background-image: linear-gradient(to bottom, #8CBCD6, #9DC5DB, #AED0E0, #BFD9E5);
+    padding: 0.75vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    font-size: max(1.1vw, 13px);
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    z-index: 9998;
+}
+
+footer a {
+    color: black;
+    text-decoration: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-input-label,
+button[id="abort-test-button"] {
+    padding: 1vw;
+    background: #333;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    margin-top: 0.5vw;
+    text-align: center;
+    cursor: pointer;
+    transition: .5s;
+    border: 1px solid #333;
+    font-size: max(1.1vw, 14px);
+    border-radius: 10px;
+    width: max(16.55vw, 10rem);
+    padding: 5px;
+    height: calc(2vw + 1rem);
+    justify-content: center;
+    align-items: center;
+}
+
+button[id="submit"] {
+    background-color: darkgrey;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: max(1vw, 14px);
+    transition: .5s;
+    width: max(17vw, 11rem);
+    height: max(2vw, 1.5rem);
+    margin-top: 0.75vw;
+    color: black;
+}
+
+.file-input-label:hover,
+button[id="submit"]:hover,
+button[id="abort-test-button"]:hover {
+    color: #333;
+    background: white;
+    cursor: pointer;
+}
+
+button[id="abort-test-button"] {
+    margin-top: 2vw;
+}
+
+button[id="results-section-button"] {
+    background-color: darkgrey;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: max(0.85vw, 12px);
+    transition: .5s;
+    width: max(11vw, 7rem);
+    height: max(2.5vw, 2rem);
+    margin-top: 0.75vw;
+    color: black;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+button[id="results-section-button"]:hover {
+    color: #333;
+    background: white;
+    cursor: pointer;
+}
+
+.results-action-buttons-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.align-left {
+    display: flex;
+    flex-direction: row; /* Stack the buttons vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.align-right {
+    margin-left: auto;
+}
+
+.align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#selected-file-label {
+    display: inline-block;
+    font-style: italic;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+#selected-file-fields,
+#submit-tests-fields {
+    display: flex;
+    align-items: center;
+    border: none;
+    padding-left: 0;
+}
+
+#stop-error-fields {
+    width: 60vw;
+}
+
+#stop-error-fields label {
+    margin-right: 30px;
+}
+
+.description-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#error-message {
+    color: red;
+    margin: 15px 0;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+#doc-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.doc-table-div {
+    border-collapse: collapse;
+    overflow-x: auto;
+    scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.doc-table-div table {
+    width: 100%;
+}
+
+.doc-table-div td,
+.doc-table-div th {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.doc-table-div th {
+    background-color: #CCC1BF;
+    text-align: center;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 9999;
+}
+
+#loading-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: black;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid white;
+    border-top-color: black;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+main ul {
+    margin-top: -1vw;
+}
+
+main li {
+    margin-bottom: 0.3vw;
+    line-height: max(1.6vw, 18px);
+}
+
+main a {
+    color: rgb(20, 99, 189);
+    transition: color 0.3s;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-offset: 3px;
+}
+
+main a:hover {
+    color: #00aeff;
+    font-weight: bold;
+}
+
+code {
+    background-color: #a29e9e;
+    padding: 0.2vw 6px;
+    font-family: "Courier New", monospace;
+    font-size: max(0.85vw, 13px);
+    color: #fcfcfc;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+p {
+    line-height: max(1.75vw, 20px);
+    margin: 0;
+    margin-bottom: max(0.75vw, 14px);
+}
+
+.rsc-external-fig {
+    margin-left: 3vw;
+    margin-right: 2vw;
+}
+
+.rsc-internal-fig {
+    margin-right: 0;
+    margin-left: 2vw;
+}
+
+.rsc-external-fig,
+.rsc-internal-fig {
+    margin-bottom: 1vw;
+    float: right;
+}
+
+.rsc-internal-fig {
+    margin-right: 0;
+}
+
+.rsc-img-div img {
+    width: 18vw;
+    height: 10vw;
+}
+
+.rsc-img-div a:hover {
+    font-weight: normal!important;
+}
+
+.rsc-img-div {
+    text-align: center;
+}
+
+.rsc-img-div figcaption {
+    font-style: italic;
+    color: black;
+    text-align: center;
+    font-size: max(1.1vw, 9px);
+}
+
+.header-div {
+    margin-bottom: max(4.5vw, 65px);
+}
+
+.footer-div {
+    margin-top: calc(3vw + 1.9rem);
+}
+
+.doc-table-id-cells,
+.doc-table-step-type-cells {
+    text-align: center;
+}
+
+.doc-table-step-type-cells { font-style: italic;}
+
+.ul-div {
+    margin-top: 30px;
+}
+
+.test-results-section {
+    border: 2px solid black;
+    padding: 5px;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.test-results-section h2 {
+    margin-top: 0;
+}
+
+.doc-table-cell-div {
+    text-align: left;
+}
+
+.table-code,
+.table-url {
+    font-family: monospace, "Arial";
+    border-radius: 5px;
+}
+
+.table-url {
+    background-color: #e0ffff;
+    font-weight: bold;
+}
+
+.params-list,
+.params-list li {
+    margin: 0 !important;
+}
+
+.fixture-error-paragraph {
+    font-weight: bold;
+}
+
+#search-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1vw;
+}
+  
+#search-container input {
+    font-size: max(0.8vw, 12px);
+    height: 30px;
+    width: 250px;
+    border: 2.5px solid grey;
+    border-radius: 5px;
+    padding-right: 2.5vw;
+    padding-left: 10px
+}
+  
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+  
+hr {
+    height: 2px;
+    background-color: black;
+    margin-top: 1.5vw;
+}
+
+#collapse-section-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+#collapse-section-button h2 {
+    margin-right: 10px;
+}
+
+/* make table responsive on smartphone screens -> removed because this will make table too small on smartphones screens and JSON either overflows or gets too small on smartphones
+.doc-table-div table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.doc-table-cell-div {
+    word-wrap: break-word;
+}
+
+.doc-table-div th {
+    word-wrap: break-word;
+}
+*/
