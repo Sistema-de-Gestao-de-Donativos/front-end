@@ -3,7 +3,13 @@ import React from 'react';
 function HomePage() {
     return (
         <main>
-            <h1>Retornar o HTML da página aqui!</h1>
+            <div class='outer'>
+                <div class="container">
+                <a href='/cadastracd'><button class="btn-add">Cadastrar CD</button></a> 
+                <a href='/pesquisacd'><button class="btn-search">Pesquisar CD</button></a> 
+            </div>
+        </div>
+            
         </main>
     );
 }

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import HomePage from './pages/HomePage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PesqCD from './pages/PesqCD'
+import CadastraCD from './pages/CadastraCD';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
@@ -14,6 +16,8 @@ function App() {
             <Header />
                 <Routes>
                     <Route exact path="/" element={<HomePage/>} />
+                    <Route exact path="/pesqcd" element={<PesqCD/>} />
+                    <Route exact path="/cadastracd" element={<CadastraCD/>} />
                 </Routes>
             <Footer />
       </BrowserRouter>
