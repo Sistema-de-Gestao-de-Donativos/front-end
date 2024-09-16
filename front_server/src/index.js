@@ -9,6 +9,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import { ModalProvider } from './pages/ModalContext';
 
+import PesquisaAbrigoPage from './pages/PesquisaAbrigoPage';
+import CadastraAbrigoPage from './pages/CadastraAbrigoPage';
 
 // configurar as rotas das telas aqui!
 function App() {
@@ -20,6 +22,8 @@ function App() {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/pesqcd" element={<PesqCD />} />
                         <Route path="/cadastracd" element={<CadastraCD />} />
+                        <Route path="/pesquisaAbrigo" element={<PesquisaAbrigoPage />} />
+                        <Route path="/cadastraAbrigo" element={<CadastraAbrigoPage />} />
                     </Routes>
                 </BrowserRouter>
             </FormProvider>
