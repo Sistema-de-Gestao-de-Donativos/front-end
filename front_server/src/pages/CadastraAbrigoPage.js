@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import '../styles/styles.css'; // Import the CSS file
+import '../styles/styleCadastraAbrigo.css'; // Import the CSS file
 
 function CadastraAbrigoPage() {
     // State to store the form fields and submission status

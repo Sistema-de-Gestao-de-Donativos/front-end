@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import '../styles/styles.css'; // Import the CSS file
+import '../styles/stylePesquisaAbrigo.css'; // Import the CSS file
 
 function PesquisaAbrigoPage() {
     // State to store the search query, results, and search status
