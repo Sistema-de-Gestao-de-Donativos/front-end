@@ -106,6 +106,7 @@ const CadastraCD = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
+                                maxLength="50"
                             />
                         </div>
 
@@ -121,6 +122,7 @@ const CadastraCD = () => {
                                         name="country"
                                         value={formData.country}
                                         onChange={handleChange}
+                                        maxLength="50"
                                         required
                                     />
                                 </div>
@@ -148,6 +150,7 @@ const CadastraCD = () => {
                                         value={formData.city}
                                         onChange={handleChange}
                                         required
+                                        maxLength="50"
                                     />
                                 </div>
                                 <div>
@@ -158,6 +161,7 @@ const CadastraCD = () => {
                                         name="neighborhood"
                                         value={formData.neighborhood}
                                         onChange={handleChange}
+                                        maxLength="50"
                                     />
                                 </div>
                                 <div>
@@ -169,6 +173,7 @@ const CadastraCD = () => {
                                         value={formData.street}
                                         onChange={handleChange}
                                         required
+                                        maxLength="50"
                                     />
                                 </div>
                                 <div>
@@ -180,6 +185,7 @@ const CadastraCD = () => {
                                         value={formData.number}
                                         onChange={handleChange}
                                         required
+                                        maxLength="50"
                                     />
                                 </div>
                             </div>
@@ -195,6 +201,7 @@ const CadastraCD = () => {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 required
+                                maxLength="50"
                             />
                         </div>
 
@@ -208,6 +215,7 @@ const CadastraCD = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                maxLength="50"
                             />
                         </div>
 
