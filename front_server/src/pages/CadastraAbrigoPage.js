@@ -179,7 +179,7 @@ function CadastraAbrigoPage() {
                         maxLength={50}
                     />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="code">Código:</label>
                     <input
                         type="text"
@@ -190,7 +190,7 @@ function CadastraAbrigoPage() {
                         required
                         maxLength={50}
                     />
-                </div>
+                </div> */}
                 <button type="submit" className="submit-button">Cadastrar</button>
             </form>
 
