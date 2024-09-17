@@ -3,12 +3,24 @@ import { useFormContext } from './FormContext';
 import { useModalContext } from './ModalContext';
 import Header from '../components/Header';
 
+// Function to get the next ID from local storage
+const getNextId = () => {
+    let currentId = parseInt(localStorage.getItem('currentId'), 10);
+    if (isNaN(currentId)) {
+        currentId = 0; // Initialize if not present
+    }
+    const nextId = currentId + 1;
+    localStorage.setItem('currentId', nextId); // Update the ID in local storage
+    return nextId;
+};
+
 const CadastraCD = () => {
     const { addSubmission, isDuplicateSubmission } = useFormContext();
     const { isModalVisible, modalMessage, showModal, hideModal } = useModalContext();
 
     // State for form fields
     const [formData, setFormData] = useState({
+        cod: '', // Initialize codCD
         name: '',
         country: '',
         state: '',
@@ -26,7 +38,6 @@ const CadastraCD = () => {
     // List of states
     const statesList = [
         "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
-        
     ];
 
     // Effect to populate states dropdown
@@ -46,13 +57,20 @@ const CadastraCD = () => {
     // Handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Check for duplicate submission
-        if (isDuplicateSubmission(formData)) {
+    
+        const newCod = `${getNextId()}`; // Generate the new code
+        console.log('New Cod:', newCod); // Log the new code
+        const submissionData = { ...formData, cod: newCod }; // Use 'cod' instead of 'codCD'
+    
+        console.log('Submission Data:', submissionData); // Log submission data
+    
+        if (isDuplicateSubmission(submissionData)) {
             showModal("Duplicate submission detected.");
         } else {
-            addSubmission(formData);
+            addSubmission(submissionData);
             showModal("Submission successful!");
             setFormData({
+                cod: '',
                 name: '',
                 country: '',
                 state: '',
@@ -62,15 +80,10 @@ const CadastraCD = () => {
                 number: '',
                 phone: '',
                 email: ''
-            }); // Reset form
+            });
         }
     };
-
-    // Confirm submission
-    const handleConfirm = () => {
-        hideModal();
-        
-    };
+    
 
     // Close modal
     const handleClose = () => {
@@ -209,7 +222,7 @@ const CadastraCD = () => {
                 {isModalVisible && (
                     <div className="modal-overlay">
                         <div className="modal-content">
-                            <h2>{modalMessage === "Submission successful!" ? "Success" : "Duplicate"}</h2>
+                            <h2>{modalMessage === "Submission successful!" ? "Success" : "Error"}</h2>
                             <p>{modalMessage}</p>
                             <button onClick={handleClose}>OK</button>
                         </div>
