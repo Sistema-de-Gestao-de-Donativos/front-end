@@ -59,9 +59,9 @@ function CadastraAbrigoPage() {
     };
 
     // Handle back button click
-    const handleBackClick = () => {
-        window.history.back(); // Navigate back to the previous page
-    };
+    // const handleBackClick = () => {
+    //     window.history.back(); // Navigate back to the previous page
+    // };
 
     return (
         <main>
@@ -80,6 +80,7 @@ function CadastraAbrigoPage() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -91,6 +92,7 @@ function CadastraAbrigoPage() {
                         value={formData.country}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -102,6 +104,7 @@ function CadastraAbrigoPage() {
                         value={formData.state}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -113,6 +116,7 @@ function CadastraAbrigoPage() {
                         value={formData.city}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -124,6 +128,7 @@ function CadastraAbrigoPage() {
                         value={formData.neighborhood}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -135,6 +140,7 @@ function CadastraAbrigoPage() {
                         value={formData.street}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -146,6 +152,7 @@ function CadastraAbrigoPage() {
                         value={formData.number}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -157,6 +164,7 @@ function CadastraAbrigoPage() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -168,6 +176,7 @@ function CadastraAbrigoPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -179,6 +188,7 @@ function CadastraAbrigoPage() {
                         value={formData.code}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <button type="submit" className="submit-button">Cadastrar</button>
@@ -191,8 +201,8 @@ function CadastraAbrigoPage() {
                 </div>
             )}
 
-            {/* Back button */}
-            <button className="back-button" onClick={handleBackClick}>Voltar</button>
+            {/* Back button
+            <button className="back-button" onClick={handleBackClick}>Voltar</button> */}
         </main>
     );
 }

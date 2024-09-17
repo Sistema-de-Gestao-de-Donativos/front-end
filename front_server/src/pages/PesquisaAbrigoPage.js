@@ -132,8 +132,8 @@ function PesquisaAbrigoPage() {
                 ))
             )}
         </div>
-            {/* Back button */}
-            <button className="back-button">Voltar</button>
+            {/* Back button
+            <button className="back-button">Voltar</button> */}
         </main>
     );
 }
