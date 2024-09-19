@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useFormContext } from './FormContext';
 import { useModalContext } from './ModalContext';
 import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+import logo from '../components/logo.png'
 
 // Function to get the next ID from local storage
 const getNextId = () => {
@@ -92,13 +94,15 @@ const CadastraCD = () => {
 
     return (
         <div>
-            <Header />
             <div className='outer'>
+            <div className="logo-container">
+                    <img src={logo} alt="Logo" className="logo" />
+            </div>
                 <div className="form-container">
                     <form onSubmit={handleSubmit}>
                         {/* Name */}
                         <div className="form-group">
-                            <label htmlFor="name">Name:</label>
+                            <label htmlFor="name">Nome do CD:</label>
                             <input
                                 type="text"
                                 id="name"
@@ -115,7 +119,7 @@ const CadastraCD = () => {
                             <label>Address:</label>
                             <div className="address-group">
                                 <div>
-                                    <label htmlFor="country">Country:</label>
+                                    <label htmlFor="country">Pais:</label>
                                     <input
                                         type="text"
                                         id="country"
@@ -127,7 +131,7 @@ const CadastraCD = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="state">State:</label>
+                                    <label htmlFor="state">Estado:</label>
                                     <select
                                         id="state"
                                         name="state"
@@ -135,14 +139,14 @@ const CadastraCD = () => {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value="" disabled>Select a state</option>
+                                        <option value="" disabled>Selecione um Estado</option>
                                         {states.map(state => (
                                             <option key={state} value={state}>{state}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label htmlFor="city">City:</label>
+                                    <label htmlFor="city">Cidade:</label>
                                     <input
                                         type="text"
                                         id="city"
@@ -154,7 +158,7 @@ const CadastraCD = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="neighborhood">Neighborhood:</label>
+                                    <label htmlFor="neighborhood">Vizinhanca:</label>
                                     <input
                                         type="text"
                                         id="neighborhood"
@@ -165,7 +169,7 @@ const CadastraCD = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="street">Street:</label>
+                                    <label htmlFor="street">Rua:</label>
                                     <input
                                         type="text"
                                         id="street"
@@ -177,7 +181,7 @@ const CadastraCD = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="number">Number:</label>
+                                    <label htmlFor="number">Numero:</label>
                                     <input
                                         type="text"
                                         id="number"
@@ -193,7 +197,7 @@ const CadastraCD = () => {
 
                         {/* Phone Number */}
                         <div className="form-group">
-                            <label htmlFor="phone">Phone Number:</label>
+                            <label htmlFor="phone">Telefone:</label>
                             <input
                                 type="tel"
                                 id="phone"
@@ -220,17 +224,20 @@ const CadastraCD = () => {
                         </div>
 
                         {/* Submit Button */}
-                        <div className="form-group">
-                            <button type="submit">Submit</button>
+                        <div className="form-group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <button type="submit">Enviar</button>
+                            <Link to={"/"}><button id='btn-home'>Voltar</button></Link> 
                         </div>
+                        
                     </form>
+                    
                 </div>
 
                 {/* Modals */}
                 {isModalVisible && (
                     <div className="modal-overlay">
                         <div className="modal-content">
-                            <h2>{modalMessage === "Submission successful!" ? "Success" : "Error"}</h2>
+                            <h2>{modalMessage === "Cadastro efetuado com sucesso!" ? "Successo" : "Erro"}</h2>
                             <p>{modalMessage}</p>
                             <button onClick={handleClose}>OK</button>
                         </div>

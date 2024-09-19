@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useFormContext } from './FormContext';
 import Header from '../components/Header';
 import { useModalContext } from './ModalContext';
+import { Link } from 'react-router-dom';
+import logo from '../components/logo.png'
 
 // Main component
 const PesqCD = () => {
@@ -73,25 +75,28 @@ const PesqCD = () => {
     }, [codQuery, nameQuery, submissions, hideModal]);
 
     return (
+        <div>
+        <div className="logo-container">
+                    <img src={logo} alt="Logo" className="logo" />
+        </div>
         <div className="submissions-table">
-            <Header />
 
             <div className="search-bar">
                 <input
                     type="text"
-                    placeholder="Search by code..."
+                    placeholder="Procurar por codigo"
                     value={codQuery}
                     onChange={handleCodChange}
                     onKeyDown={handleKeyDown} // Handle key press events
                 />
                 <input
                     type="text"
-                    placeholder="Search by name..."
+                    placeholder="Procurar por nome"
                     value={nameQuery}
                     onChange={handleNameChange}
                     onKeyDown={handleKeyDown} // Handle key press events
                 />
-                <button onClick={handleSearchClick}>Search</button>
+                <button onClick={handleSearchClick}>Pesquisar</button>
             </div>
 
             {/* Render table only if there are results */}
@@ -99,15 +104,15 @@ const PesqCD = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Country</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Neighborhood</th>
-                            <th>Street</th>
-                            <th>Number</th>
-                            <th>Phone</th>
+                            <th>Codigo</th>
+                            <th>Nome</th>
+                            <th>Pais</th>
+                            <th>Estado</th>
+                            <th>Cidade</th>
+                            <th>Vizinhanca</th>
+                            <th>Rua</th>
+                            <th>Numero</th>
+                            <th>Telefone</th>
                             <th>Email</th>
                         </tr>
                     </thead>
@@ -129,20 +134,25 @@ const PesqCD = () => {
                     </tbody>
                 </table>
             ) : (
-                <p>No submissions found</p>
+                <p>0 resultados encontrados</p>
             )}
 
             {/* Modals */}
             {isModalVisible && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <h2>{modalMessage === "No results found" ? "No results found" : "Success"}</h2>
+                        <h2>{modalMessage === "Sem resultados" ? "Sem resultados" : "Sem resultados"}</h2>
                         <p>{modalMessage}</p>
                         <button onClick={handleClose}>OK</button>
                     </div>
                 </div>
             )}
+            <div className='btnhome'>
+                <Link to={"/"}><button id='btn-home'>Voltar</button></Link> 
+            </div>
         </div>
+        </div>
+        
     );
 };
 
