@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { useFormContext } from './FormContext';
+import { useModalContext } from './ModalContext';
 import Header from '../components/Header';
 import '../styles/styleCadastraAbrigo.css'; // Import the CSS file
 
 function CadastraAbrigoPage() {
-    // State to store the form fields and submission status
-    const [showPopup, setShowPopup] = useState(false);
+    const { addSubmission, isDuplicateSubmission } = useFormContext();
+    const { isModalVisible, modalMessage, showModal, hideModal } = useModalContext();
+
+    // State for form fields
     const [formData, setFormData] = useState({
         name: '',
         country: '',
@@ -14,10 +18,8 @@ function CadastraAbrigoPage() {
         street: '',
         number: '',
         phone: '',
-        email: '',
-        code: ''
+        email: ''
     });
-    const [submissionStatus, setSubmissionStatus] = useState('');
 
     // Handle input change
     const handleInputChange = (e) => {
@@ -32,11 +34,15 @@ function CadastraAbrigoPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Here you would typically send a POST request to an API
-        // For this example, we'll just log the data and set a success message
-        console.log('Form data submitted:', formData);
-        
-        // Clear the form and set submission status
+        // Check for duplicate entries using context
+        if (isDuplicateSubmission(formData)) {
+            showModal('Duplicate entry detected!');
+        } else {
+            addSubmission(formData); // Add the new submission
+            showModal('Submission successful!');
+        }
+
+        // Clear the form data after submission
         setFormData({
             name: '',
             country: '',
@@ -46,22 +52,14 @@ function CadastraAbrigoPage() {
             street: '',
             number: '',
             phone: '',
-            email: '',
-            code: ''
+            email: ''
         });
-        setSubmissionStatus('Abrigo cadastrado com sucesso!');
-        setShowPopup(true);
-
-        // Hide the popup after 4 seconds
-        setTimeout(() => {
-            setShowPopup(false);
-        }, 4000);
     };
 
-    // Handle back button click
-    // const handleBackClick = () => {
-    //     window.history.back(); // Navigate back to the previous page
-    // };
+    // Handle modal close
+    const handleClose = () => {
+        hideModal();
+    };
 
     return (
         <main>
@@ -146,13 +144,12 @@ function CadastraAbrigoPage() {
                 <div className="form-group">
                     <label htmlFor="number">Número:</label>
                     <input
-                        type="number"
+                        type="text"
                         id="number"
                         name="number"
                         value={formData.number}
                         onChange={handleInputChange}
                         required
-                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -179,30 +176,19 @@ function CadastraAbrigoPage() {
                         maxLength={50}
                     />
                 </div>
-                {/* <div className="form-group">
-                    <label htmlFor="code">Código:</label>
-                    <input
-                        type="text"
-                        id="code"
-                        name="code"
-                        value={formData.code}
-                        onChange={handleInputChange}
-                        required
-                        maxLength={50}
-                    />
-                </div> */}
                 <button type="submit" className="submit-button">Cadastrar</button>
             </form>
 
-            {/* Popup for submission status */}
-            {showPopup && (
-                <div className="popup">
-                    <p>{submissionStatus}</p>
+            {/* Modal */}
+            {isModalVisible && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>{modalMessage === 'Submission successful!' ? 'Success' : 'Duplicate'}</h2>
+                        <p>{modalMessage}</p>
+                        <button onClick={handleClose}>OK</button>
+                    </div>
                 </div>
             )}
-
-            {/* Back button
-            <button className="back-button" onClick={handleBackClick}>Voltar</button> */}
         </main>
     );
 }

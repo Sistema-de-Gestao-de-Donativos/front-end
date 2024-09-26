@@ -7,6 +7,7 @@ function PesquisaAbrigoPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [results, setResults] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const sampleData = [
         {
@@ -83,6 +84,7 @@ function PesquisaAbrigoPage() {
         // Check if the search query is empty
         if (searchQuery.trim() === '') {
             setResults([]); // Clear the results
+            setIsModalVisible(true); // Show modal if no search query
             return; // Stop the function from proceeding
         }
 
@@ -90,7 +92,20 @@ function PesquisaAbrigoPage() {
         const filteredResults = sampleData.filter((abrigo) =>
             abrigo.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
+
         setResults(filteredResults);
+
+        // Show modal if no results are found
+        if (filteredResults.length === 0) {
+            setIsModalVisible(true);
+        } else {
+            setIsModalVisible(false); // Hide modal if results are found
+        }
+    };
+
+    // Function to close the modal
+    const closeModal = () => {
+        setIsModalVisible(false);
     };
 
     return (
@@ -109,31 +124,38 @@ function PesquisaAbrigoPage() {
                 />
                 <button onClick={handleSearch}>Buscar</button>
             </div>
-{/* Results table */}
-<div className="results-table">
-    {/* Show "Nenhum resultado encontrado" if no results are found after a search */}
-    {hasSearched && results.length === 0 ? (
-        <p>Nenhum resultado encontrado</p>
-    ) : (
-        // Show results if there are any
-        results.length > 0 && results.map((abrigo) => (
-            <div key={abrigo.id} className="table-row">
-                <h3>{abrigo.name}</h3>
-                <p><strong>ID:</strong> {abrigo.id}</p>
-                <p><strong>País:</strong> {abrigo.country}</p>
-                <p><strong>Estado:</strong> {abrigo.state}</p>
-                <p><strong>Cidade:</strong> {abrigo.city}</p>
-                <p><strong>Bairro:</strong> {abrigo.neighborhood}</p>
-                <p><strong>Rua:</strong> {abrigo.street}, {abrigo.number}</p>
-                <p><strong>Telefone:</strong> {abrigo.phone}</p>
-                <p><strong>Email:</strong> {abrigo.email}</p>
-                <p><strong>Código:</strong> {abrigo.code}</p>
+
+            {/* Results table */}
+            <div className="results-table">
+                {hasSearched && results.length === 0 ? null : (
+                    results.length > 0 && results.map((abrigo) => (
+                        <div key={abrigo.id} className="table-row">
+                            <h3>{abrigo.name}</h3>
+                            <p><strong>ID:</strong> {abrigo.id}</p>
+                            <p><strong>País:</strong> {abrigo.country}</p>
+                            <p><strong>Estado:</strong> {abrigo.state}</p>
+                            <p><strong>Cidade:</strong> {abrigo.city}</p>
+                            <p><strong>Bairro:</strong> {abrigo.neighborhood}</p>
+                            <p><strong>Rua:</strong> {abrigo.street}, {abrigo.number}</p>
+                            <p><strong>Telefone:</strong> {abrigo.phone}</p>
+                            <p><strong>Email:</strong> {abrigo.email}</p>
+                            <p><strong>Código:</strong> {abrigo.code}</p>
+                        </div>
+                    ))
+                )}
             </div>
-                ))
+
+
+            {/* Modal */}
+            {isModalVisible && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Nenhum abrigo encontrado</h2>
+                        <p>Por favor, tente outra busca.</p>
+                        <button onClick={closeModal}>Fechar</button>
+                    </div>
+                </div>
             )}
-        </div>
-            {/* Back button
-            <button className="back-button">Voltar</button> */}
         </main>
     );
 }
