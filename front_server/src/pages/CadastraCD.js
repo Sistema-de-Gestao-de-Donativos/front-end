@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useFormContext } from './FormContext';
 import { useModalContext } from './ModalContext';
 import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+import logo from '../components/logo.png'
+
+// Function to get the next ID from local storage
+const getNextId = () => {
+    let currentId = parseInt(localStorage.getItem('currentId'), 10);
+    if (isNaN(currentId)) {
+        currentId = 0; // Initialize if not present
+    }
+    const nextId = currentId + 1;
+    localStorage.setItem('currentId', nextId); // Update the ID in local storage
+    return nextId;
+};
 
 const CadastraCD = () => {
     const { addSubmission, isDuplicateSubmission } = useFormContext();
@@ -9,6 +22,7 @@ const CadastraCD = () => {
 
     // State for form fields
     const [formData, setFormData] = useState({
+        cod: '', // Initialize codCD
         name: '',
         country: '',
         state: '',
@@ -26,7 +40,6 @@ const CadastraCD = () => {
     // List of states
     const statesList = [
         "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
-        
     ];
 
     // Effect to populate states dropdown
@@ -46,13 +59,20 @@ const CadastraCD = () => {
     // Handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Check for duplicate submission
-        if (isDuplicateSubmission(formData)) {
+    
+        const newCod = `${getNextId()}`; // Generate the new code
+        console.log('New Cod:', newCod); // Log the new code
+        const submissionData = { ...formData, cod: newCod }; // Use 'cod' instead of 'codCD'
+    
+        console.log('Submission Data:', submissionData); // Log submission data
+    
+        if (isDuplicateSubmission(submissionData)) {
             showModal("Duplicate submission detected.");
         } else {
-            addSubmission(formData);
+            addSubmission(submissionData);
             showModal("Submission successful!");
             setFormData({
+                cod: '',
                 name: '',
                 country: '',
                 state: '',
@@ -62,15 +82,10 @@ const CadastraCD = () => {
                 number: '',
                 phone: '',
                 email: ''
-            }); // Reset form
+            });
         }
     };
-
-    // Confirm submission
-    const handleConfirm = () => {
-        hideModal();
-        
-    };
+    
 
     // Close modal
     const handleClose = () => {
@@ -79,13 +94,15 @@ const CadastraCD = () => {
 
     return (
         <div>
-            <Header />
             <div className='outer'>
+            <div className="logo-container">
+                    <img src={logo} alt="Logo" className="logo" />
+            </div>
                 <div className="form-container">
                     <form onSubmit={handleSubmit}>
                         {/* Name */}
                         <div className="form-group">
-                            <label htmlFor="name">Name:</label>
+                            <label htmlFor="name">Nome do CD:</label>
                             <input
                                 type="text"
                                 id="name"
@@ -93,6 +110,7 @@ const CadastraCD = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
+                                maxLength="50"
                             />
                         </div>
 
@@ -101,18 +119,19 @@ const CadastraCD = () => {
                             <label>Address:</label>
                             <div className="address-group">
                                 <div>
-                                    <label htmlFor="country">Country:</label>
+                                    <label htmlFor="country">Pais:</label>
                                     <input
                                         type="text"
                                         id="country"
                                         name="country"
                                         value={formData.country}
                                         onChange={handleChange}
+                                        maxLength="50"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="state">State:</label>
+                                    <label htmlFor="state">Estado:</label>
                                     <select
                                         id="state"
                                         name="state"
@@ -120,14 +139,14 @@ const CadastraCD = () => {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value="" disabled>Select a state</option>
+                                        <option value="" disabled>Selecione um Estado</option>
                                         {states.map(state => (
                                             <option key={state} value={state}>{state}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label htmlFor="city">City:</label>
+                                    <label htmlFor="city">Cidade:</label>
                                     <input
                                         type="text"
                                         id="city"
@@ -135,20 +154,22 @@ const CadastraCD = () => {
                                         value={formData.city}
                                         onChange={handleChange}
                                         required
+                                        maxLength="50"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="neighborhood">Neighborhood:</label>
+                                    <label htmlFor="neighborhood">Vizinhanca:</label>
                                     <input
                                         type="text"
                                         id="neighborhood"
                                         name="neighborhood"
                                         value={formData.neighborhood}
                                         onChange={handleChange}
+                                        maxLength="50"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="street">Street:</label>
+                                    <label htmlFor="street">Rua:</label>
                                     <input
                                         type="text"
                                         id="street"
@@ -156,10 +177,11 @@ const CadastraCD = () => {
                                         value={formData.street}
                                         onChange={handleChange}
                                         required
+                                        maxLength="50"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="number">Number:</label>
+                                    <label htmlFor="number">Numero:</label>
                                     <input
                                         type="text"
                                         id="number"
@@ -167,6 +189,7 @@ const CadastraCD = () => {
                                         value={formData.number}
                                         onChange={handleChange}
                                         required
+                                        maxLength="50"
                                     />
                                 </div>
                             </div>
@@ -174,7 +197,7 @@ const CadastraCD = () => {
 
                         {/* Phone Number */}
                         <div className="form-group">
-                            <label htmlFor="phone">Phone Number:</label>
+                            <label htmlFor="phone">Telefone:</label>
                             <input
                                 type="tel"
                                 id="phone"
@@ -182,6 +205,7 @@ const CadastraCD = () => {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 required
+                                maxLength="50"
                             />
                         </div>
 
@@ -195,21 +219,25 @@ const CadastraCD = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                maxLength="50"
                             />
                         </div>
 
                         {/* Submit Button */}
-                        <div className="form-group">
-                            <button type="submit">Submit</button>
+                        <div className="form-group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <button type="submit">Enviar</button>
+                            <Link to={"/"}><button id='btn-home'>Voltar</button></Link> 
                         </div>
+                        
                     </form>
+                    
                 </div>
 
                 {/* Modals */}
                 {isModalVisible && (
                     <div className="modal-overlay">
                         <div className="modal-content">
-                            <h2>{modalMessage === "Submission successful!" ? "Success" : "Duplicate"}</h2>
+                            <h2>{modalMessage === "Cadastro efetuado com sucesso!" ? "Successo" : "Erro"}</h2>
                             <p>{modalMessage}</p>
                             <button onClick={handleClose}>OK</button>
                         </div>

@@ -1,23 +1,27 @@
 import React from 'react';
+import './views/header.css'
+import { Link } from 'react-router-dom';
+import logo from './logo.png'
 
 function Header() {
     return (
         <div className="header-div">
             <header>
-                <div>
-                    <a href="" target="blank">
-                        <img id="pucrs-logo" className="pucrs-logo" src="/pucrs.png" alt="PUCRS logo"/>
-                    </a>
-                    <nav>
-                        <ul>
-                            <li><a href="/">HOME</a></li>
-                            <li><a href="/pesqcd">Pesquisar CD</a></li>
-                            <li><a href="/cadastracd">Cadastrar CD</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <h1 className="page-title">Sistema de Gestão de Donativos</h1>
+            <nav class="nav-menu">
+            <ul>
+                <li><Link to='/pesqcd'><a href="#">Consulta CD</a></Link></li>
+                <li><Link to='/cadastracd'><a href="#">Cadastro CD</a></Link></li>
+                <li><a href="#">Gerar Relatório</a></li>
+                <li><a href="#">Consultar Pedidos</a></li>
+                <li><a href="#">Editar Voluntários</a></li>
+                <li><a href="#">Cadastrar Admin Abrigo</a></li>
+                <li><a href="#">Tutorial do Sistema</a></li>
+            </ul>
+        </nav>
             </header>
+            <div className="logo-container">
+            <img src={logo} alt="Logo" className="logo" />
+        </div>
         </div>
     );
 }
