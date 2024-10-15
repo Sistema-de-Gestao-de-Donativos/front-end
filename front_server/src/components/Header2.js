@@ -7,9 +7,11 @@ function Header() {
             <header>
             <nav class="nav-menu">
             <ul>
-                <li><a href="#">Entrada de Produto</a></li>
-                <li><a href="#">Saída de Produto</a></li>
-                <li><a href="#">Status do Pedido</a></li>
+                <li><a href="#">Consulta de Estoque</a></li>
+                <li><a href="#">Gerar Relatório</a></li>
+                <li><a href="#">Consultar Pedidos</a></li>
+                <li><a href="#">Editar Voluntários</a></li>
+                <li><a href="#">Cadastrar Admin Abrigo</a></li>
                 <li><a href="#">Tutorial do Sistema</a></li>
             </ul>
         </nav>

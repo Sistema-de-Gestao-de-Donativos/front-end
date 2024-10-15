@@ -7,9 +7,9 @@ function Header() {
             <header>
             <nav class="nav-menu">
             <ul>
-                <li><a href="#">Entrada de Produto</a></li>
-                <li><a href="#">Saída de Produto</a></li>
-                <li><a href="#">Status do Pedido</a></li>
+                <li><a href="#">Criar Pedidos</a></li>
+                <li><a href="#">Confirmar Recebimento</a></li>
+                <li><a href="#">Consultar Pedidos</a></li>
                 <li><a href="#">Tutorial do Sistema</a></li>
             </ul>
         </nav>
