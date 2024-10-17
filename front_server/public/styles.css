@@ -1,80 +1,382 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-body {
-    padding-top: 80px;
-    font-family: Arial, sans-serif;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 120%;
-}
-
-.header-div {
-    flex-direction: column;
-    align-items: center;    /* Centraliza horizontalmente */
+#root{
     width: 100%;
-    position: fixed;
-    justify-content: center;
-    top: 20px;
-    left: 0;
 }
 
 .logo-container {
     display: flex;
-    justify-content: center; /* Centraliza a logo horizontalmente */
-    width: 100%;             /* Faz a logo-container ocupar toda a largura disponível */
+    justify-content: center; 
+    width: 100%;
+           
 }
 
-.nav-menu {
-    flex: 3;
+/* Container for the table and search bar */
+.submissions-table {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    margin-top: 6.25%;
+    height: 100px;
 }
 
-.logo {
-    max-width: 100px;
-}
-
-
-header {
-    background-color: #8ed1fc;
+/* Search bar styles */
+.search-bar {
+    margin-bottom: 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
+    justify-content: center;
+    gap: 10px;
 }
 
-.logo-img {
-    height: 50px;
+.search-bar input {
+    width: 25%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.nav-menu ul {
-    display: flex;
-    justify-content: space-around;
-    list-style: none;
+.search-bar input:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 0, 255, 0.2);
 }
 
-.nav-menu ul li {
-    display: inline;
-}
-
-.nav-menu ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
+.search-bar button {
     padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* Text color */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3; /* Darker shade of primary color */
+}
+
+.search-bar button:active {
+    transform: scale(0.98); /* Slightly scale down on click */
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #e9e9e9;
+}
+
+table td {
+    word-break: break-word;
+}
+
+/* No results found styling */
+table tbody tr td {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    table th, table td {
+        font-size: 14px; /* Reduce font size for smaller screens */
+        padding: 8px; /* Reduce padding */
+    }
+
+    .search-bar input {
+        font-size: 14px; /* Reduce font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+
+    .search-bar input {
+        font-size: 14px; /* Reduce font size for smaller screens */
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    .submissions-table {
+        overflow-x: auto; /* Enable horizontal scrolling for the table container */
+        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling for iOS devices */
+    }
+
+    table {
+        display: block;
+        width: 100%;
+    }
+
+    table thead {
+        display: block; /* Make thead block to ensure headers are shown */
+        width: 100%;
+    }
+
+    table tbody {
+        display: block;
+        width: 100%;
+    }
+
+    table thead th, table tbody td {
+        min-width: 200px; /* Ensure enough space for content */
+        text-align: center;
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+    }
+
+    table tbody tr {
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        align-items: center; /* Center items vertically */
+    }
+
+    table tbody td {
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        position: relative;
+        border: 1px solid #ddd;
+        text-align: center;
+        min-width: 200px; /* Ensure enough space for content */
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+    }
+
+    table tbody td::before {
+        content: attr(data-label); /* Use data-label for column headers */
+        font-weight: bold;
+        margin-bottom: 4px;
+        text-align: left; /* Align label to the left */
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
+}
+
+.btnhome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px; /* adjust as needed */
+}
+
+
+/* Styles for modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.modal-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-content button:first-child {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.modal-content button:first-child:hover {
+    background-color: #0056b3;
+}
+
+.modal-content button:last-child {
+    background-color: #ccc;
+}
+
+.modal-content button:last-child:hover {
+    background-color: #999;
+}
+
+/* Styles for submissions list */
+.submissions-list {
+    margin-top: 20px;
+}
+
+.submissions-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.submissions-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.submissions-list div {
+    margin-bottom: 5px;
+}
+
+
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group .address-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-group .address-group div {
+    flex: 1;
+    min-width: 120px;
+}
+
+.form-group .address-group input,
+.form-group .address-group select {
+    width: 100%;
+}
+
+.form-group button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .form-group .address-group {
+        flex-direction: column;
+    }
+
+    .form-group .address-group div {
+        min-width: 100%;
+    }
+}
+
+#btn-home{
+    background-color: gray;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.nav-menu ul li a:hover {
-    background-color: #6cbce3;
+.outer{
+    display: grid;
+    place-items: center; 
+    height: 90vh;  
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; 
+    position: relative;
+
+}
+
+.container button{
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff; /* Blue color for buttons */
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pucrs-logo {
+    width: max(3.2vw, 32px);
+    height: max(3.2vw, 32px);
+    margin-left: 0.85vw;
+}
+
+header {
+    background-image: linear-gradient(to bottom, #8CBCD6, #9DC5DB, #AED0E0, #BFD9E5);
+    display: flex;
+    align-items: center;
+    height: max(3.9vw, 55px);
+    width: 100%;
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: max(1.2vw, 12px);
+    z-index: 9998;
 }
 
 body {
@@ -540,4 +842,3 @@ hr {
     word-wrap: break-word;
 }
 */
-
