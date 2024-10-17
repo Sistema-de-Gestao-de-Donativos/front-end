@@ -1,0 +1,165 @@
+/* General Styles for Both Pages */
+
+main {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Heading styles */
+h1 {
+    color: #0066cc;
+    margin-top: 20px;
+}
+
+h2 {
+    margin: 20px;
+}
+
+/* Shared form container styles for both pages */
+.form-container, .search-bar {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+}
+
+/* Form field styling */
+.form-group {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px; /* Set a max-width for inputs */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Shared button hover effects */
+.search-bar button:hover, .submit-button:hover, .back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Shared button styles */
+.submit-button, .back-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Submission status message */
+.submission-status {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Back button for both pages */
+.back-button {
+    margin-top: 20px;
+}
+
+/* Styles Specific to Pesquisa Page */
+
+/* Center the search-bar on the page */
+.search-bar {
+    margin: 20px auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Adjust input width and center it */
+.search-bar input {
+    padding: 10px;
+    width: 60%;
+    max-width: 500px; /* Limit max width */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button placement for the search */
+.search-bar button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Results table styling for Pesquisa */
+.results-table {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 800px; /* Adjust max-width */
+    text-align: left;
+}
+
+.table-row {
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.table-row h3 {
+    color: #0066cc;
+    margin-bottom: 10px;
+}
+
+.table-row p {
+    margin: 5px 0;
+}
+
+/* Styles Specific to Cadastra Page */
+
+/* Cadastra form-specific styles */
+.form-container {
+    margin: 20px auto; /* Increase margin for spacing */
+    width: 90%; /* Adjust width for responsiveness */
+    max-width: 600px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements horizontally */
+}
+
+/* Submit button for Cadastra */
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; 
+    max-width: 200px; 
+    text-align: center; 
+    margin-top: 15px; 
+}
+
+.popup {
+    top: 50%;
+    left: 50%;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    text-align: center;
+}

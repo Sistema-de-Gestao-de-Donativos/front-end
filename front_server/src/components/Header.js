@@ -1,5 +1,7 @@
 import React from 'react';
-import logo from './logo.png';
+import './views/header.css'
+import { Link } from 'react-router-dom';
+import logo from './logo.png'
 
 function Header() {
     return (
@@ -7,9 +9,12 @@ function Header() {
             <header>
             <nav class="nav-menu">
             <ul>
-                <li><a href="#">Entrada de Produto</a></li>
-                <li><a href="#">Saída de Produto</a></li>
-                <li><a href="#">Status do Pedido</a></li>
+                <li><Link to='/pesqcd'><a href="#">Consulta CD</a></Link></li>
+                <li><Link to='/cadastracd'><a href="#">Cadastro CD</a></Link></li>
+                <li><a href="#">Gerar Relatório</a></li>
+                <li><a href="#">Consultar Pedidos</a></li>
+                <li><a href="#">Editar Voluntários</a></li>
+                <li><a href="#">Cadastrar Admin Abrigo</a></li>
                 <li><a href="#">Tutorial do Sistema</a></li>
             </ul>
         </nav>

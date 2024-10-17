@@ -1,80 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import HomePage from './pages/HomePage';
-import HomePage2 from './pages/HomePage2';
-import HomePage3 from './pages/HomePage3';
-import HomePage4 from './pages/HomePage4';
-import HomePage5 from './pages/HomePage5';
-import HomePage6 from './pages/HomePage6';
-import HomePage7 from './pages/HomePage7';
-import HomePage8 from './pages/HomePage8';
 import Header from './components/Header';
-import Header2 from './components/Header2';
-import Header3 from './components/Header3';
-import Header4 from './components/Header4';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DEFAULT_BREAKPOINTS } from 'react-bootstrap/esm/ThemeProvider';
+import PesqCD from './pages/PesqCD';
+import CadastraCD from './pages/CadastraCD';
+import PesquisaAbrigoPage from './pages/PesquisaAbrigoPage';
+import CadastraAbrigoPage from './pages/CadastraAbrigoPage';
+import { FormProvider } from './pages/FormContext';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { ModalProvider } from './pages/ModalContext';
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+// Create a component to manage the header display logic
+const AppLayout = () => {
+    const location = useLocation();
 
-function App() {
-    
-    const menus = ["HomePage2", "HomePage3", "HomePage4", "HomePage5"];
-
-    const userType = 'adminCd';
-
-    let tipoComponent;
-    let headerComponent;
-    let menu;
-
-    switch (userType) {
-        case 'superAdmin':
-            tipoComponent = <HomePage5 />;
-            headerComponent = <Header4 />;
-            menu = "HomePage5";
-            break;
-        case 'adminCd':
-            tipoComponent = <HomePage3 />;
-            headerComponent = <Header2 />;
-            menu = "HomePage3";
-            break;
-        case 'adminAbrigo':
-            tipoComponent = <HomePage4 />;
-            headerComponent = <Header3 />;
-            menu = "HomePage4";
-            break;
-        case 'voluntario':
-            tipoComponent = <HomePage2 />;
-            headerComponent = <Header />;
-            menu = "HomePage2";
-            break;
-        default:
-            tipoComponent = <HomePage2 />;
-            headerComponent = <Header />;
-            menu = "HomePage2";
-            break;
-    }
-
-    tipoComponent = <HomePage8 />;
-    headerComponent = <Header />;
-    menu = "HomePage8";
+    // Check if the current path requires a Header
+    const showHeader = location.pathname === '/pesqcd' || location.pathname === '/cadastracd' 
+                    || location.pathname === '/pesquisaAbrigo' || location.pathname === '/cadastraAbrigo' ;
 
     return (
-        <BrowserRouter>
-            {menus.includes(menu) ? (
-                <Routes>
-                <Route exact path="/" element={tipoComponent} />
-                </Routes>
-            ) : (
-                <>
-                    {headerComponent}
-                    <Routes>
-                        <Route exact path="/" element={tipoComponent} />
-                    </Routes>
-                </>
-            )}
-        </BrowserRouter>
+        <>
+            {showHeader && <Header />}
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/pesqcd" element={<PesqCD />} />
+                <Route path="/cadastracd" element={<CadastraCD />} />
+                <Route path="/pesquisaAbrigo" element={<PesquisaAbrigoPage />} />
+                <Route path="/cadastraAbrigo" element={<CadastraAbrigoPage />} />
+            </Routes>
+        </>
+    );
+};
+
+// Main App component
+function App() {
+    return (
+        <ModalProvider>
+            <FormProvider>
+                <BrowserRouter>
+                    <AppLayout />
+                </BrowserRouter>
+            </FormProvider>
+        </ModalProvider>
     );
 }
 
-export default App;
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
