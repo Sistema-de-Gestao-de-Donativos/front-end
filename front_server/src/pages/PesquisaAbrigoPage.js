@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import '../styles/stylePesquisaAbrigo.css'; // Import the CSS file
+import '../pages/views/pesquisaAbrigo.css'; // Import the CSS file
+import logo from '../components/logo.png'
 
 function PesquisaAbrigoPage() {
     // State to store the search query, results, and search status
@@ -8,101 +9,52 @@ function PesquisaAbrigoPage() {
     const [results, setResults] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const sampleData = [
-        {
-            id: 1,
-            name: 'Abrigo Centro',
-            country: 'Brasil',
-            state: 'RS',
-            city: 'Porto Alegre',
-            neighborhood: 'Centro',
-            street: 'Rua dos Andradas',
-            number: 101,
-            phone: '+55 51 98765-4321',
-            email: 'centro@abrigo.com',
-            code: 'CEN101'
-        },
-        {
-            id: 2,
-            name: 'Abrigo Cidade Baixa',
-            country: 'Brasil',
-            state: 'RS',
-            city: 'Porto Alegre',
-            neighborhood: 'Cidade Baixa',
-            street: 'Rua Lima e Silva',
-            number: 202,
-            phone: '+55 51 91234-5678',
-            email: 'cidadebaixa@abrigo.com',
-            code: 'CBX202'
-        },
-        {
-            id: 3,
-            name: 'Abrigo Moinhos de Vento',
-            country: 'Brasil',
-            state: 'RS',
-            city: 'Porto Alegre',
-            neighborhood: 'Moinhos de Vento',
-            street: 'Rua 24 de Outubro',
-            number: 303,
-            phone: '+55 51 92345-6789',
-            email: 'moinhos@abrigo.com',
-            code: 'MDV303'
-        },
-        {
-            id: 4,
-            name: 'Abrigo Menino Deus',
-            country: 'Brasil',
-            state: 'RS',
-            city: 'Porto Alegre',
-            neighborhood: 'Menino Deus',
-            street: 'Av. Getúlio Vargas',
-            number: 404,
-            phone: '+55 51 93456-7890',
-            email: 'meninodeus@abrigo.com',
-            code: 'MND404'
-        },
-        {
-            id: 5,
-            name: 'Abrigo Jardim Botânico',
-            country: 'Brasil',
-            state: 'RS',
-            city: 'Porto Alegre',
-            neighborhood: 'Jardim Botânico',
-            street: 'Rua Dr. Salvador França',
-            number: 505,
-            phone: '+55 51 94567-8901',
-            email: 'jardimbotanico@abrigo.com',
-            code: 'JBT505'
-        }
-    ];
     
     // Function to handle the search
-    const handleSearch = () => {
+    const handleSearch = async () => {
         setHasSearched(true);
 
+        // debug
+        // console.log(searchQuery);
+    
         // Check if the search query is empty
         if (searchQuery.trim() === '') {
             setResults([]); // Clear the results
             setIsModalVisible(true); // Show modal if no search query
             return; // Stop the function from proceeding
         }
-
-        // Filter the sample data based on the search query
-        const filteredResults = sampleData.filter((abrigo) =>
-            abrigo.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-        setResults(filteredResults);
-
-        // Show modal if no results are found
-        if (filteredResults.length === 0) {
-            setIsModalVisible(true);
-        } else {
-            setIsModalVisible(false); // Hide modal if results are found
+    
+        console.log(searchQuery)
+    
+        try {
+            // Make the API call
+            
+            const response = await fetch(`localhost:8080/v1/abrigos?nomeAbrigo=${searchQuery}`);
+    
+            // Check if the response is okay
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+    
+            // Parse the JSON response
+            const results = await response.json();
+    
+            // Set the results
+            setResults(results);
+    
+            // Show modal if no results are found
+            if (results.length === 0) {
+                setIsModalVisible(true);
+            } else {
+                setIsModalVisible(false); // Hide modal if results are found
+            }
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+            setResults([]); // Clear results in case of error
+            setIsModalVisible(true); // Show modal for error
         }
     };
-
+    
     // Function to close the modal
     const closeModal = () => {
         setIsModalVisible(false);
@@ -111,7 +63,9 @@ function PesquisaAbrigoPage() {
     return (
         <main>
             <Header />
-            <h1>SGDRS</h1>
+            <div className="logo-container">
+                    <img src={logo} alt="Logo" className="logo" />
+            </div>
             <h2>Pesquisa de Abrigos</h2>
 
             {/* Search input */}
@@ -132,14 +86,14 @@ function PesquisaAbrigoPage() {
                         <div key={abrigo.id} className="table-row">
                             <h3>{abrigo.name}</h3>
                             <p><strong>ID:</strong> {abrigo.id}</p>
-                            <p><strong>País:</strong> {abrigo.country}</p>
-                            <p><strong>Estado:</strong> {abrigo.state}</p>
-                            <p><strong>Cidade:</strong> {abrigo.city}</p>
-                            <p><strong>Bairro:</strong> {abrigo.neighborhood}</p>
-                            <p><strong>Rua:</strong> {abrigo.street}, {abrigo.number}</p>
+                            <p><strong>País:</strong> {abrigo.address.country}</p>
+                            <p><strong>Estado:</strong> {abrigo.address.state}</p>
+                            <p><strong>Cidade:</strong> {abrigo.address.city}</p>
+                            <p><strong>Bairro:</strong> {abrigo.address.neighborhood}</p>
+                            <p><strong>Rua:</strong> {abrigo.address.street}, {abrigo.address.number}</p>
                             <p><strong>Telefone:</strong> {abrigo.phone}</p>
                             <p><strong>Email:</strong> {abrigo.email}</p>
-                            <p><strong>Código:</strong> {abrigo.code}</p>
+                            {/* <p><strong>Código:</strong> {abrigo.code}</p> */}
                         </div>
                     ))
                 )}
