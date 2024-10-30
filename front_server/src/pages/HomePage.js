@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './views/admincd.css';
+import './views/adminCd.css';
 import logo from '../components/logo.png'
 
 function HomePage() {
