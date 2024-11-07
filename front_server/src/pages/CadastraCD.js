@@ -225,7 +225,7 @@ const CadastraCD = () => {
 
                         {/* Submit Button */}
                         <div className="form-group" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <button type="submit">Enviar</button>
+                            <button type="submit" id='btn-send'>Enviar</button>
                             <Link to={"/"}><button id='btn-home'>Voltar</button></Link> 
                         </div>
                         

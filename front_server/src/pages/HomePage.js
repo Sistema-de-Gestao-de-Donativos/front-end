@@ -14,8 +14,8 @@ function HomePage() {
                 <div className="menu-container">
                     <div className="row">
                         <div class="container">
-                            <Link to='/cadastracd'><button className="menu-button">Cadastrar CD</button></Link>
-                            <Link to='/pesqcd'><button className="menu-button">Pesquisar CD</button></Link>
+                            <Link to='/cadastracd'><button className="menu-button" id='btn-cad-cd'>Cadastrar CD</button></Link>
+                            <Link to='/pesqcd'><button className="menu-button" id='btn-pesq-cd'>Pesquisar CD</button></Link>
                         </div>
                     </div>
                 </div>
