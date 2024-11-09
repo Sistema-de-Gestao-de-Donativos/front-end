@@ -11,7 +11,11 @@ const NavBar = () => {
                 <Link to="/home3">HomePage3</Link>
                 <Link to="/home4">HomePage4</Link>
                 <Link to="/home5">HomePage5</Link>
+                <Link to="/home6">HomePage6</Link>
+                <Link to="/home7">HomePage7</Link>
+                <Link to="/home8">HomePage8</Link>
                 <Link to="/home9">HomePage9</Link>
+                <Link to="/home10">HomePage10</Link>
                 <Link to="/pesqcd">PesqCD</Link>
                 <Link to="/cadastracd">CadastraCD</Link>
                 <Link to="/pesquisaAbrigo">Pesquisa Abrigo</Link>
