@@ -3,35 +3,25 @@ import { useFormContext } from './FormContext';
 import { useModalContext } from './ModalContext';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-import logo from '../components/logo.png'
-
-// Function to get the next ID from local storage
-const getNextId = () => {
-    let currentId = parseInt(localStorage.getItem('currentId'), 10);
-    if (isNaN(currentId)) {
-        currentId = 0; // Initialize if not present
-    }
-    const nextId = currentId + 1;
-    localStorage.setItem('currentId', nextId); // Update the ID in local storage
-    return nextId;
-};
+import logo from '../components/logo.png';
 
 const CadastraCD = () => {
-    const { addSubmission, isDuplicateSubmission } = useFormContext();
+    
     const { isModalVisible, modalMessage, showModal, hideModal } = useModalContext();
 
     // State for form fields
     const [formData, setFormData] = useState({
-        cod: '', // Initialize codCD
         name: '',
-        country: '',
-        state: '',
-        city: '',
-        neighborhood: '',
-        street: '',
-        number: '',
         phone: '',
-        email: ''
+        email: '',
+        address: {
+            country: '',
+            state: '',
+            city: '',
+            neighborhood: '',
+            street: '',
+            number: ''
+        }
     });
 
     // State for states dropdown
@@ -50,42 +40,80 @@ const CadastraCD = () => {
     // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+        
+        if (name in formData) {
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        } else if (name.includes('address')) {
+            const [field] = name.split('.');
+            const addressField = name.replace(`${field}.`, '');
+            setFormData(prevData => ({
+                ...prevData,
+                [field]: {
+                    ...prevData[field],
+                    [addressField]: value
+                }
+            }));
+        }
     };
 
     // Handle form submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        const newCod = `${getNextId()}`; // Generate the new code
-        console.log('New Cod:', newCod); // Log the new code
-        const submissionData = { ...formData, cod: newCod }; // Use 'cod' instead of 'codCD'
-    
-        console.log('Submission Data:', submissionData); // Log submission data
-    
-        if (isDuplicateSubmission(submissionData)) {
-            showModal("Duplicate submission detected.");
-        } else {
-            addSubmission(submissionData);
-            showModal("Submission successful!");
-            setFormData({
-                cod: '',
-                name: '',
-                country: '',
-                state: '',
-                city: '',
-                neighborhood: '',
-                street: '',
-                number: '',
-                phone: '',
-                email: ''
+
+        // Prepare the data to match the required format
+        const submissionData = {
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            address: {
+                country: formData.address.country,
+                state: formData.address.state,
+                city: formData.address.city,
+                neighborhood: formData.address.neighborhood,
+                street: formData.address.street,
+                number: parseInt(formData.address.number, 10) // Make sure number is an integer
+            }
+        };
+
+        // POST request to the backend to create a new CD
+        try {
+            const response = await fetch('http://localhost:8081/v1/cds', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submissionData),
             });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                //console.log('CD created successfully:', responseData);
+                showModal("Cadastro efetuado com sucesso!");
+                setFormData({
+                    name: '',
+                    phone: '',
+                    email: '',
+                    address: {
+                        country: '',
+                        state: '',
+                        city: '',
+                        neighborhood: '',
+                        street: '',
+                        number: ''
+                    }
+                });
+            } else {
+                const errorData = await response.json();
+                showModal(`Error: ${errorData.error}`);
+            }
+        } catch (error) {
+            console.error('Error during submission:', error);
+            showModal("Error submitting the form.");
         }
     };
-    
 
     // Close modal
     const handleClose = () => {
@@ -95,9 +123,9 @@ const CadastraCD = () => {
     return (
         <div>
             <div className='outer'>
-            <div className="logo-container">
+                <div className="logo-container">
                     <img src={logo} alt="Logo" className="logo" />
-            </div>
+                </div>
                 <div className="form-container">
                     <form onSubmit={handleSubmit}>
                         {/* Name */}
@@ -119,23 +147,23 @@ const CadastraCD = () => {
                             <label>Address:</label>
                             <div className="address-group">
                                 <div>
-                                    <label htmlFor="country">Pais:</label>
+                                    <label htmlFor="address.country">Pais:</label>
                                     <input
                                         type="text"
-                                        id="country"
-                                        name="country"
-                                        value={formData.country}
+                                        id="address.country"
+                                        name="address.country"
+                                        value={formData.address.country}
                                         onChange={handleChange}
                                         maxLength="50"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="state">Estado:</label>
+                                    <label htmlFor="address.state">Estado:</label>
                                     <select
-                                        id="state"
-                                        name="state"
-                                        value={formData.state}
+                                        id="address.state"
+                                        name="address.state"
+                                        value={formData.address.state}
                                         onChange={handleChange}
                                         required
                                     >
@@ -146,47 +174,47 @@ const CadastraCD = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label htmlFor="city">Cidade:</label>
+                                    <label htmlFor="address.city">Cidade:</label>
                                     <input
                                         type="text"
-                                        id="city"
-                                        name="city"
-                                        value={formData.city}
+                                        id="address.city"
+                                        name="address.city"
+                                        value={formData.address.city}
                                         onChange={handleChange}
                                         required
                                         maxLength="50"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="neighborhood">Vizinhanca:</label>
+                                    <label htmlFor="address.neighborhood">Vizinhanca:</label>
                                     <input
                                         type="text"
-                                        id="neighborhood"
-                                        name="neighborhood"
-                                        value={formData.neighborhood}
+                                        id="address.neighborhood"
+                                        name="address.neighborhood"
+                                        value={formData.address.neighborhood}
                                         onChange={handleChange}
                                         maxLength="50"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="street">Rua:</label>
+                                    <label htmlFor="address.street">Rua:</label>
                                     <input
                                         type="text"
-                                        id="street"
-                                        name="street"
-                                        value={formData.street}
+                                        id="address.street"
+                                        name="address.street"
+                                        value={formData.address.street}
                                         onChange={handleChange}
                                         required
                                         maxLength="50"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="number">Numero:</label>
+                                    <label htmlFor="address.number">Numero:</label>
                                     <input
                                         type="text"
-                                        id="number"
-                                        name="number"
-                                        value={formData.number}
+                                        id="address.number"
+                                        name="address.number"
+                                        value={formData.address.number}
                                         onChange={handleChange}
                                         required
                                         maxLength="50"
@@ -228,12 +256,10 @@ const CadastraCD = () => {
                             <button type="submit" id='btn-send'>Enviar</button>
                             <Link to={"/"}><button id='btn-home'>Voltar</button></Link> 
                         </div>
-                        
                     </form>
-                    
                 </div>
 
-                {/* Modals */}
+                {/* Modal */}
                 {isModalVisible && (
                     <div className="modal-overlay">
                         <div className="modal-content">
