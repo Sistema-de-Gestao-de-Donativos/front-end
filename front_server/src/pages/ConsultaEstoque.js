@@ -10,33 +10,64 @@ function ConsultaEstoque() {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     // Sample data to simulate API response
-    const sampleData = [
-        { item: 'Item A', quantidade: 10 },
-        { item: 'Item B', quantidade: 5 },
-        { item: 'Item C', quantidade: 20 },
-    ];
+    // const sampleData = [
+    //     { nome: 'Item A', quantidade: 10, unidade: 'kg', categoria: 'Alimentos' },
+    //     { nome: 'Item B', quantidade: 5, unidade: 'un', categoria: 'Bebidas' },
+    //     { nome: 'Item C', quantidade: 20, unidade: 'L', categoria: 'Produtos de Limpeza' },
+    // ];
 
     // Function to handle the search
     const handleSearch = async () => {
         setHasSearched(true);
 
-        // search using substring, return every item that contains that substring
+        // // Using sample data instead of actual API response
+        // const filteredData = searchQuery.trim() === ''
+        //     ? sampleData
+        //     : sampleData.filter((item) =>
+        //         item.nome.toLowerCase().includes(searchQuery.toLowerCase())
+        //     );
+
+        // if (filteredData.length > 0) {
+        //     setResults(filteredData);
+        //     setIsModalVisible(false);
+        // } else {
+        //     setResults([]);
+        //     setIsModalVisible(true);
+        // }
+
         
-        // Simulating an API call with sample data
-        const data = searchQuery.trim() === '' 
-            ? sampleData 
-            : sampleData.filter((item) =>
-                item.item.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-        
-        // Simulating results and modal behavior
-        if (data && data.length > 0) {
-            setResults(data);
-            setIsModalVisible(false);
-        } else {
+        try {
+            // retrieve correct codCD, 1 as placeholder for now
+            const codCd = 1;
+            const response = await fetch(`/v1/stock/${codCd}`);
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Filter items by search query if needed
+                const filteredData = searchQuery.trim() === ''
+                    ? data
+                    : data.filter((item) =>
+                        item.nome.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+                
+                if (filteredData.length > 0) {
+                    setResults(filteredData);
+                    setIsModalVisible(false);
+                } else {
+                    setResults([]);
+                    setIsModalVisible(true);
+                }
+            } else {
+                console.error('Failed to fetch data:', response.statusText);
+                setResults([]);
+                setIsModalVisible(true);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
             setResults([]);
             setIsModalVisible(true);
         }
+
     };
 
     // Function to close the modal
@@ -44,7 +75,7 @@ function ConsultaEstoque() {
         setIsModalVisible(false);
     };
 
-    // Fetch all items initially on component mount (using sample data here)
+    // Fetch all items initially on component mount
     useEffect(() => {
         handleSearch();
     }, []);
@@ -78,13 +109,17 @@ function ConsultaEstoque() {
                             <tr>
                                 <th>Item</th>
                                 <th>Quantidade</th>
+                                <th>Unidade</th>
+                                <th>Categoria</th>
                             </tr>
                         </thead>
                         <tbody>
                             {results.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.item || 'N/A'}</td>
+                                    <td>{item.nome || 'N/A'}</td>
                                     <td>{item.quantidade || 'N/A'}</td>
+                                    <td>{item.unidade || 'N/A'}</td>
+                                    <td>{item.categoria || 'N/A'}</td>
                                 </tr>
                             ))}
                         </tbody>

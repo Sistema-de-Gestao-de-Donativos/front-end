@@ -7,6 +7,8 @@ import CadastraCD from './pages/CadastraCD';
 import PesquisaAbrigoPage from './pages/PesquisaAbrigoPage';
 import CadastraAbrigoPage from './pages/CadastraAbrigoPage';
 import ConsultaEstoque  from './pages/ConsultaEstoque';
+import CriaDoacao from './pages/CriaDoacao';
+
 import { FormProvider } from './pages/FormContext';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { ModalProvider } from './pages/ModalContext';
@@ -29,6 +31,7 @@ const AppLayout = () => {
                 <Route path="/pesquisaAbrigo" element={<PesquisaAbrigoPage />} />
                 <Route path="/cadastraAbrigo" element={<CadastraAbrigoPage />} />
                 <Route path="/consultaEstoque" element={<ConsultaEstoque />} />
+                <Route path="/criaDoacao" element={<CriaDoacao />} />
             </Routes>
         </>
     );
