@@ -30,6 +30,8 @@ import Header2 from './components/Header2';
 import Header3 from './components/Header3';
 import Header4 from './components/Header4';
 
+import LoginPage from './pages/LoginPage';
+
 // Configuration for HomePages and Headers
 const homePages = [
     { path: "/", element: <HomePage />, header: null },
@@ -49,6 +51,7 @@ const otherRoutes = [
     { path: "/cadastracd", element: <CadastraCD />, header: <Header /> },
     { path: "/pesquisaAbrigo", element: <PesquisaAbrigoPage />, header: <Header />},
     { path: "/cadastraAbrigo", element: <CadastraAbrigoPage />, header: <Header />},
+    { path: "/login", element: <LoginPage />, header: null },
 ];
 
 // App Layout Component to manage headers dynamically
