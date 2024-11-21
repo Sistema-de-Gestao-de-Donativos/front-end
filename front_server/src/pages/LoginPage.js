@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@react-oauth/google';
+// import {jwtDecode} from 'jwt-decode';
 import logo from '../components/logo.png';
 import './views/loginPage.css';
 
@@ -14,20 +15,8 @@ function LoginPage() {
             setError('Please enter both username and password.');
             return;
         }
-        console.log('Username:', username);
-        console.log('Password:', password);
-        // Implement login logic here (e.g., API request to validate credentials)
         setError('');
-    };
-
-    const handleGoogleSuccess = (response) => {
-        console.log('Google login successful:', response.profileObj);
-        // Handle login success, e.g., save user details or token
-    };
-
-    const handleGoogleFailure = (response) => {
-        console.error('Google login failed:', response);
-        // Handle login failure
+        alert('Regular login simulated!'); // Simulating regular login for testing
     };
 
     return (
@@ -66,14 +55,21 @@ function LoginPage() {
                         </button>
                     </form>
                     <div className="google-login">
-                        <GoogleLogin
-                            clientId="YOUR_GOOGLE_CLIENT_ID" // Replace with your Google Client ID
-                            buttonText="Sign in with Google"
-                            onSuccess={handleGoogleSuccess}
-                            onFailure={handleGoogleFailure}
-                            cookiePolicy={'single_host_origin'}
-                            className="google-login-btn"
-                        />
+                    <GoogleLogin
+                        type='standard'
+                        onSuccess={credentialResponse => {
+                            // envia o token pelo cabecalho da requisicao
+                            console.log(credentialResponse); // enviar essa credential para o microsserviço de autenticacao
+                            
+                            // salva o jwt como cookie no navegador
+                            // const decodedToken = jwtDecode(credentialResponse.credential);
+                            // console.log(decodedToken);
+                            
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                    /> 
                     </div>
                 </div>
             </div>

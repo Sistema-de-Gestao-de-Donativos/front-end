@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes, useLocation, Navigate } from 'react-route
 import { ModalProvider } from './pages/ModalContext';
 import { FormProvider } from './pages/FormContext';
 import NavBar from './components/NavBar';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // Import HomePages
 import HomePage from './pages/HomePage'; // no header
@@ -90,6 +91,7 @@ const AppLayout = () => {
 // Main App Component
 function App() {
     return (
+        <GoogleOAuthProvider clientId= "689715815045-0esnj5b7t94kgtf26ea4gq7d78tk2nbm.apps.googleusercontent.com">
         <ModalProvider>
             <FormProvider>
                 <BrowserRouter>
@@ -97,6 +99,7 @@ function App() {
                 </BrowserRouter>
             </FormProvider>
         </ModalProvider>
+        </GoogleOAuthProvider>
     );
 }
 

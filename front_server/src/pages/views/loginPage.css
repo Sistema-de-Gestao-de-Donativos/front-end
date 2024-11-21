@@ -50,16 +50,17 @@
 
 .login-button {
     padding: 10px 20px;
-    width: 182px;
+    width: 225px;
     height: 45px;
+    margin-bottom: 10px;
     align-self: center;
     background-color: #007bff;
     color: white;
     border: black;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Google-style bottom shadow */
-    transition: box-shadow 0.3s ease; /* Smooth transition for shadow on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease; 
     
 }
 
