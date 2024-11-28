@@ -21,7 +21,7 @@ function LoginPage() {
 
 
     async function handleAutorization(credentialResponse) {
-        const url = "localhost:8000/v1";  // url da api de autenticacao
+        const url = "http://localhost:8000/v1";  // url da api de autenticacao
         const payload = {
             token: credentialResponse.credential,
         };
