@@ -9,37 +9,14 @@ function ConsultaEstoque() {
     const [hasSearched, setHasSearched] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    // Sample data to simulate API response
-    // const sampleData = [
-    //     { nome: 'Item A', quantidade: 10, unidade: 'kg', categoria: 'Alimentos' },
-    //     { nome: 'Item B', quantidade: 5, unidade: 'un', categoria: 'Bebidas' },
-    //     { nome: 'Item C', quantidade: 20, unidade: 'L', categoria: 'Produtos de Limpeza' },
-    // ];
-
     // Function to handle the search
     const handleSearch = async () => {
         setHasSearched(true);
-
-        // // Using sample data instead of actual API response
-        // const filteredData = searchQuery.trim() === ''
-        //     ? sampleData
-        //     : sampleData.filter((item) =>
-        //         item.nome.toLowerCase().includes(searchQuery.toLowerCase())
-        //     );
-
-        // if (filteredData.length > 0) {
-        //     setResults(filteredData);
-        //     setIsModalVisible(false);
-        // } else {
-        //     setResults([]);
-        //     setIsModalVisible(true);
-        // }
-
         
         try {
             // retrieve correct codCD, 1 as placeholder for now
             const codCd = 1;
-            const response = await fetch(`/v1/stock/${codCd}`);
+            const response = await fetch(`http://localhost:8080/v1/stock/${codCd}`);
             if (response.ok) {
                 const data = await response.json();
                 
