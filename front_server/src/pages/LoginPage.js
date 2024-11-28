@@ -16,8 +16,41 @@ function LoginPage() {
             return;
         }
         setError('');
-        alert('Regular login simulated!'); // Simulating regular login for testing
+        alert('Regular login simulated!'); // implementar login sem google
     };
+
+
+    async function handleAutorization(credentialResponse) {
+        const url = "localhost:8000/v1";  // url da api de autenticacao
+        const payload = {
+            token: credentialResponse.credential,
+        };
+    
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Erro na autenticação: ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            console.log("Token jwt decoded: ", data);
+            console.log("Autenticação bem-sucedida:", data);
+
+            // aqui armazenar o token 
+
+
+        } catch (error) {
+            console.error("Erro ao realizar autenticação:", error.message);
+        }
+    }
+    
 
     return (
         <main>
@@ -58,12 +91,9 @@ function LoginPage() {
                     <GoogleLogin
                         type='standard'
                         onSuccess={credentialResponse => {
-                            // envia o token pelo cabecalho da requisicao
-                            console.log(credentialResponse); // enviar essa credential para o microsserviço de autenticacao
-                            
-                            // salva o jwt como cookie no navegador
-                            // const decodedToken = jwtDecode(credentialResponse.credential);
-                            // console.log(decodedToken);
+                            console.log(credentialResponse); // isso retorna o client_id e credential
+                            // funcao para enviar a credential para o microsserviço de autenticacao
+                            handleAutorization(credentialResponse);                            
                             
                         }}
                         onError={() => {
