@@ -21,7 +21,11 @@ function LoginPage() {
 
 
     async function handleAutorization(credentialResponse) {
+        // ip 3.83.93.239
+        // porta de autenticacao
+
         const url = "http://localhost:8000/v1";  // url da api de autenticacao
+                                                 // substituir pelo da cloud
         const payload = {
             token: credentialResponse.credential,
         };
@@ -43,8 +47,9 @@ function LoginPage() {
             console.log("Token jwt decoded: ", data);
             console.log("Autenticação bem-sucedida:", data);
 
-            // aqui armazenar o token 
+            // aqui armazenar o token para enviar como header
 
+            
 
         } catch (error) {
             console.error("Erro ao realizar autenticação:", error.message);
