@@ -19,13 +19,14 @@ function LoginPage() {
         alert('Regular login simulated!'); // implementar login sem google
     };
 
-
     async function handleAutorization(credentialResponse) {
-        // ip 3.83.93.239
-        // porta de autenticacao
 
-        const url = "http://localhost:8000/v1";  // url da api de autenticacao
-                                                 // substituir pelo da cloud
+        // local
+        // const url = "http://localhost:8000/v1";  // url da api de autenticacao
+
+        // cloud
+        const url = "http://34.193.7.217:port/v1";  // substituir port correto
+
         const payload = {
             token: credentialResponse.credential,
         };
@@ -45,12 +46,12 @@ function LoginPage() {
     
             const data = await response.json();
             console.log("Token jwt decoded: ", data);
-            console.log("Autenticação bem-sucedida:", data);
+            console.log("Autenticação bem-sucedida:");
 
             // aqui armazenar o token para enviar como header
+            localStorage.setItem('token', data);
 
             
-
         } catch (error) {
             console.error("Erro ao realizar autenticação:", error.message);
         }
