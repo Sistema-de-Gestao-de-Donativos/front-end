@@ -16,7 +16,8 @@ function ConsultaEstoque() {
         try {
             // retrieve correct codCD, 1 as placeholder for now
             const codCd = 1;
-            const response = await fetch(`http://localhost:8080/v1/stock/${codCd}`);
+            // const response = await fetch(`http://localhost:8080/v1/stock/${codCd}`);
+            const response = await fetch(`http://34.193.7.217:8800/v1/stock/${codCd}`);
             if (response.ok) {
                 const data = await response.json();
                 
