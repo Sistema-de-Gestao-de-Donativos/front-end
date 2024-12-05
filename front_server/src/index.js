@@ -23,6 +23,7 @@ import PesqCD from './pages/PesqCD'; // default header
 import CadastraCD from './pages/CadastraCD'; // default header
 import PesquisaAbrigoPage from './pages/PesquisaAbrigoPage'; // default header
 import CadastraAbrigoPage from './pages/CadastraAbrigoPage'; // default header
+import LoginPage from './pages/LoginPage';
 
 // Import Headers
 import Header from './components/Header'; // Default header
@@ -30,8 +31,6 @@ import Header1 from './components/Header1';
 import Header2 from './components/Header2';
 import Header3 from './components/Header3';
 import Header4 from './components/Header4';
-
-import LoginPage from './pages/LoginPage';
 
 // Configuration for HomePages and Headers
 const homePages = [
@@ -64,7 +63,25 @@ const AppLayout = () => {
         (route) => route.path === location.pathname
     );
 
+
+    // trocar isso depois
     const HeaderComponent = currentPage?.header || null;
+
+
+    // depois da autenticacao funcionando usar isso
+
+    // const jwtToken = localStorage.getItem('token');
+    // let role = jwtToken.role;
+    // let HeaderComponent;
+    
+    // if (role === "superadmin")
+    //     HeaderComponent = <Header1/>;
+    //   else if (role === "adminCD")
+    //     HeaderComponent = <Header2/>;
+    //   else if (role === "adminAbrigo")
+    //     HeaderComponent = <Header3/>;
+    //   else
+    //     HeaderComponent = <Header4/>;
 
     return (
         <>

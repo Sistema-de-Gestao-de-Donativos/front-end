@@ -25,19 +25,20 @@ function LoginPage() {
         // const url = "http://localhost:8000/v1";  // url da api de autenticacao
 
         // cloud
-        const url = "http://34.193.7.217:port/v1";  // substituir port correto
+        const url = "http://34.193.7.217:8085/v1"; 
+        
+        let credential = credentialResponse.credential;
 
-        const payload = {
-            token: credentialResponse.credential,
-        };
-    
         try {
+            console.log("Realizando autenticação...");
+            console.log("Credential: ", credential);
+
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(credential),
             });
     
             if (!response.ok) {
@@ -48,8 +49,10 @@ function LoginPage() {
             console.log("Token jwt decoded: ", data);
             console.log("Autenticação bem-sucedida:");
 
-            // aqui armazenar o token para enviar como header
+            // armazenar o token para enviar como header
             localStorage.setItem('token', data);
+
+            // go to home page
 
             
         } catch (error) {
@@ -100,7 +103,6 @@ function LoginPage() {
                             console.log(credentialResponse); // isso retorna o client_id e credential
                             // funcao para enviar a credential para o microsserviço de autenticacao
                             handleAutorization(credentialResponse);                            
-                            
                         }}
                         onError={() => {
                             console.log('Login Failed');
