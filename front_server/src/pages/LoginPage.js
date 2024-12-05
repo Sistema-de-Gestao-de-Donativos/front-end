@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-// import {jwtDecode} from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import logo from '../components/logo.png';
 import './views/loginPage.css';
 
@@ -21,11 +21,15 @@ function LoginPage() {
 
     async function handleAutorization(credentialResponse) {
 
+        const decodedToken = jwtDecode(credentialResponse.credential);
+        console.log(decodedToken);
+
+
         // local
         // const url = "http://localhost:8000/v1";  // url da api de autenticacao
 
         // cloud
-        const url = "http://34.193.7.217:8085/v1"; 
+        const url = "http://34.193.7.217:8085/v1/users/authenticate";
         
         let credential = credentialResponse.credential;
 
@@ -37,8 +41,10 @@ function LoginPage() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${credential}`, 
+                    "accept": "application/json" 
                 },
-                body: JSON.stringify(credential),
+                body: ""
             });
     
             if (!response.ok) {
@@ -46,11 +52,11 @@ function LoginPage() {
             }
     
             const data = await response.json();
-            console.log("Token jwt decoded: ", data);
+            console.log("Token jwt: ", data);
             console.log("Autenticação bem-sucedida:");
 
-            // armazenar o token para enviar como header
-            localStorage.setItem('token', data);
+            // armazenar o token
+            localStorage.setItem('token_jwt', data);
 
             // go to home page
 

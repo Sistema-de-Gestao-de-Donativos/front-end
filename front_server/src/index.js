@@ -67,25 +67,31 @@ const AppLayout = () => {
     // trocar isso depois
     const HeaderComponent = currentPage?.header || null;
 
-
     // depois da autenticacao funcionando usar isso
 
-    // const jwtToken = localStorage.getItem('token');
-    // let role = jwtToken.role;
+    // const jwtToken = localStorage.getItem('token_jwt');  
+
+    // let role = null;
+    // if (jwtToken) {
+    //     const payloadBase64 = jwtToken.split('.')[1]; // Extract the payload part of the JWT
+    //     const payloadJson = atob(payloadBase64); // Decode from Base64
+    //     const payload = JSON.parse(payloadJson); // Parse the JSON
+    //     role = payload.role; // Access the 'role' property
+    // }
+    
     // let HeaderComponent;
     
     // if (role === "superadmin")
-    //     HeaderComponent = <Header1/>;
+    //     HeaderComponent = <Header4/>;
     //   else if (role === "adminCD")
     //     HeaderComponent = <Header2/>;
     //   else if (role === "adminAbrigo")
     //     HeaderComponent = <Header3/>;
     //   else
-    //     HeaderComponent = <Header4/>;
+    //     HeaderComponent = <Header/>;
 
     return (
         <>
-            <NavBar/>
             {HeaderComponent && <HeaderComponent.type />}
             <Routes>
                 {/* Map all home page routes */}
