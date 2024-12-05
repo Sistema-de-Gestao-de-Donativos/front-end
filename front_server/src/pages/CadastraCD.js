@@ -80,7 +80,7 @@ const CadastraCD = () => {
 
         // POST request to the backend to create a new CD
         try {
-            const response = await fetch('http://localhost:8081/v1/cds', {
+            const response = await fetch('/v1/cds', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

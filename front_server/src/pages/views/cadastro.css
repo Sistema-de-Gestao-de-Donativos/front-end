@@ -1,47 +1,53 @@
-.body {
+/* Scoped to the .cadastra-usuario-page class */
+.cadastra-usuario-page {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-header {
-  width: 100%;
+.cadastra-usuario-page .center-title {
   text-align: center;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
-.logo {
-  max-width: 150px; 
-  height: auto;
-}
-
-.container {
+.cadastra-usuario-page .container {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
-  text-align: center;
+  max-width: 900px;
+  text-align: left;
+  margin-top: 20px;
 }
 
-.form-container {
+.cadastra-usuario-page h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* No input fields next to the h3 */
+.cadastra-usuario-page .basic-info-container,
+.cadastra-usuario-page .address-box {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; /* Ensure the inputs are below the headers */
+  gap: 15px;
 }
 
-.input-container {
+.cadastra-usuario-page .input-container {
   margin-bottom: 15px;
-  width: 100%; 
 }
 
-.input-container input {
+.cadastra-usuario-page .input-container input {
   padding: 10px;
   width: 100%;
   border: 1px solid #ccc;
@@ -49,14 +55,31 @@ header {
   font-size: 16px;
 }
 
-.button-container {
+/* Make the address box fields look more compact */
+.cadastra-usuario-page .address-box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.cadastra-usuario-page .address-box h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+  text-align: left;
+}
+
+/* Buttons styling */
+.cadastra-usuario-page .button-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.register-button,
-.back-button {
+.cadastra-usuario-page .register-button,
+.cadastra-usuario-page .back-button {
   padding: 10px 20px;
   border: 1px solid #000000;
   border-radius: 3px;
@@ -67,61 +90,16 @@ header {
   transition: background-color 0.3s ease;
 }
 
-/* Style for the Address Box */
-.address-box {
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-top: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  width: 100%;
-}
-
-.address-box h3 {
-  margin-bottom: 15px;
-  font-size: 18px;
-  color: #333;
-  text-align: center;
-}
-
-/* Style for input fields inside address box */
-.address-box .input-container {
-  margin-bottom: 10px;
-}
-
-.address-box input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.address-box input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Style for buttons inside form */
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
+.cadastra-usuario-page .register-button:hover,
+.cadastra-usuario-page .back-button:hover {
   background-color: #007bff;
   color: #fff;
 }
 
-/* Popup Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .cadastra-usuario-page .basic-info-container,
+  .cadastra-usuario-page .address-box {
+    flex-direction: column; /* Keep inputs stacked vertically */
+  }
 }

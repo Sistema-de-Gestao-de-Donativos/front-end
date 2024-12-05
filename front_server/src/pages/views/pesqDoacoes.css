@@ -1,0 +1,74 @@
+/* PesqDoacoes specific styles */
+.pesq-doacoes-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Input fields for searching */
+.pesq-doacoes-container input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+/* Button styles */
+.pesq-doacoes-container button {
+    background-color: #8ed1fc;
+    color: #000000;
+    padding: 12px 20px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pesq-doacoes-container button:hover {
+    background-color: #6bbce2;
+}
+
+/* Results section */
+.pesq-doacoes-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pesq-doacoes-container li {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 1rem;
+}
+
+/* Error message */
+.pesq-doacoes-container p {
+    color: red;
+    font-size: 1.1rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .pesq-doacoes-container {
+        padding: 15px;
+    }
+
+    .pesq-doacoes-container input,
+    .pesq-doacoes-container button {
+        font-size: 0.9rem;
+    }
+
+    .pesq-doacoes-container button {
+        padding: 10px 18px;
+    }
+}

@@ -20,7 +20,7 @@ function PesquisaAbrigoPage() {
         }
     
         try {
-            const response = await fetch(`http://localhost:8080/v1/abrigos?nomeAbrigo=${searchQuery}`);
+            const response = await fetch(`/v1/abrigos?nomeAbrigo=${searchQuery}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }

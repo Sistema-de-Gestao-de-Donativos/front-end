@@ -1,32 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './views/consultar_pedidos.css';
-
-const orders = [
-    { id: 101, status: 'Enviado' },
-    { id: 102, status: 'Em separação' },
-    { id: 103, status: 'Pronto para entrega' },
-    { id: 104, status: 'Enviado' },
-    { id: 105, status: 'Em separação' },
-    { id: 106, status: 'Pronto para entrega' },
-    { id: 107, status: 'Em separação' },
-    { id: 108, status: 'Enviado' },
-    { id: 109, status: 'Pronto para entrega' },
-    { id: 110, status: 'Em separação' },
-    { id: 111, status: 'Pronto para entrega' },
-    { id: 112, status: 'Enviado' },
-    { id: 113, status: 'Pronto para entrega' },
-    { id: 114, status: 'Enviado' },
-    { id: 115, status: 'Em separação' },
-    { id: 116, status: 'Pronto para entrega' }
-];
 
 function HomePage2() {
     const [currentPage, setCurrentPage] = useState(1);
-
-    const volunteers = ['Ana', 'Bruno', 'Carlos', 'Davi', 'Eduarda'];
+    const [orders, setOrders] = useState([]); // State to hold orders
+    const [volunteers, setVolunteers] = useState([]); // State to hold volunteers
     const recordsPerPage = 6;
 
-    const searchOrder = (event) => {
+    // Fetch orders based on search query
+    const searchOrder = async (event) => {
         event.preventDefault();
 
         const orderId = document.getElementById('order-id').value;
@@ -35,11 +17,26 @@ function HomePage2() {
         resultsContainer.innerHTML = '';
         paginationContainer.innerHTML = '';
 
-        const filteredOrders = orderId ? orders.filter(order => order.id == orderId) : orders;
+        if (orderId) {
+            try {
+                const response = await fetch(`/v1/pedidos?codPedido=${orderId}`);  // Fetch orders by order ID
+                const data = await response.json();
+                setOrders(data);  // Store the fetched orders in state
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        } else {
+            setOrders([]);  // Clear orders if no order ID is provided
+        }
+
+        // Filter orders by order ID (if provided)
+        const filteredOrders = orderId ? orders.filter((order) => order.codPedido === orderId) : orders;
         const totalPages = Math.ceil(filteredOrders.length / recordsPerPage);
-        
+
+        // Call displayPage to show the orders
         displayPage(filteredOrders, currentPage);
 
+        // Create pagination buttons if needed
         if (totalPages > 1) {
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('button');
@@ -54,6 +51,7 @@ function HomePage2() {
         }
     };
 
+    // Function to display paginated orders
     const displayPage = (filteredOrders, page) => {
         const resultsContainer = document.getElementById('results');
         resultsContainer.innerHTML = '';
@@ -63,18 +61,18 @@ function HomePage2() {
         const paginatedOrders = filteredOrders.slice(start, end);
 
         if (paginatedOrders.length > 0) {
-            paginatedOrders.forEach(order => {
+            paginatedOrders.forEach((order) => {
                 const orderElement = document.createElement('div');
                 orderElement.classList.add('order-item');
-                
+
                 const orderId = document.createElement('input');
                 orderId.type = 'text';
-                orderId.value = `Pedido ${order.id}`;
+                orderId.value = `Pedido ${order.codPedido}`; // Using codPedido for the order ID
                 orderId.readOnly = true;
 
                 const orderStatus = document.createElement('input');
                 orderStatus.type = 'text';
-                orderStatus.value = `Status: ${order.status}`;
+                orderStatus.value = `Status: ${order.status}`; // Displaying the status from the order object
                 orderStatus.readOnly = true;
 
                 const volunteerSelect = document.createElement('select');
@@ -84,8 +82,8 @@ function HomePage2() {
                 defaultOption.selected = true;
                 defaultOption.disabled = true;
                 volunteerSelect.appendChild(defaultOption);
-                
-                volunteers.forEach(volunteer => {
+
+                volunteers.forEach((volunteer) => {
                     const option = document.createElement('option');
                     option.value = volunteer;
                     option.textContent = volunteer;
@@ -96,14 +94,14 @@ function HomePage2() {
                 saveButton.classList.add('save-button');
                 saveButton.textContent = 'Salvar';
                 saveButton.addEventListener('click', () => {
-                    alert(`Salvando alterações para o pedido ${order.id}`);
+                    alert(`Salvando alterações para o pedido ${order.codPedido}`);
                 });
 
                 orderElement.appendChild(orderId);
                 orderElement.appendChild(orderStatus);
                 orderElement.appendChild(volunteerSelect);
                 orderElement.appendChild(saveButton);
-                
+
                 resultsContainer.appendChild(orderElement);
             });
         } else {
@@ -119,10 +117,19 @@ function HomePage2() {
                     <form className="form-container" onSubmit={searchOrder}>
                         <div className="input-container">
                             <label htmlFor="order-id">ID Pedido</label>
-                            <input type="text" id="order-id" name="order-id" maxlength="50" placeholder="Digite o ID do pedido" />
+                            <input
+                                type="text"
+                                id="order-id"
+                                name="order-id"
+                                maxLength="50"
+                                placeholder="Digite o ID do pedido"
+                            />
                         </div>
-                        <button type="submit" className="menu-button">Buscar</button>
+                        <button type="submit" className="menu-button">
+                            Buscar
+                        </button>
                     </form>
+
                     <div id="results" className="results-container"></div>
                     <div id="pagination" className="pagination-container"></div>
                 </div>
@@ -130,6 +137,5 @@ function HomePage2() {
         </main>
     );
 }
-
 
 export default HomePage2;

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import './views/cadastroAdmin.css';
+import './views/cadastro.css';
 
-function HomePage8() {
+function HomePage7() {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [popupClass, setPopupClass] = useState('');
 
-  // State to hold form data
   const [userData, setUserData] = useState({
     name: '',
     address: {
@@ -20,11 +19,9 @@ function HomePage8() {
     email: '',
     phone: '',
     cpf: '',
-    role: '',
-    codEntidade: '', 
+    codEntidade: '',  // Let the user input codEntidade
   });
 
-  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
@@ -33,7 +30,6 @@ function HomePage8() {
     }));
   };
 
-  // Handle address field changes
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevData) => ({
@@ -45,10 +41,10 @@ function HomePage8() {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Prepare the data to match the expected structure
     const dataToSend = {
       name: userData.name,
       address: {
@@ -61,15 +57,16 @@ function HomePage8() {
       },
       email: userData.email,
       phone: userData.phone,
-      role: userData.role,
-      codEntidade: userData.codEntidade, 
+      role: 'voluntario',  // Always 'voluntario'
+      codEntidade: userData.codEntidade,  // User-provided codEntidade
       cpf: userData.cpf,
     };
 
-    // Log the data for debugging
+    // Log the data to ensure it's correct
     console.log('Data to be sent:', JSON.stringify(dataToSend));
 
     try {
+      // Send the POST request with the structured data
       const response = await fetch('/v1/users', {
         method: 'POST',
         headers: {
@@ -78,18 +75,21 @@ function HomePage8() {
         body: JSON.stringify(dataToSend),
       });
 
+      // Check if the response is successful
       if (response.ok) {
-        setPopupMessage('Admin cadastrado com sucesso!');
+        setPopupMessage('Usuário cadastrado com sucesso!');
         setPopupClass('modal modal-success');
-        console.log('Admin created successfully');
+        console.log('User created successfully');
       } else {
-        const errorData = await response.json();
-        setPopupMessage(`Erro ao cadastrar admin: ${errorData.message || response.statusText}`);
+        const errorData = await response.json();  // Get the error details from the server
+        setPopupMessage(`Erro ao cadastrar usuário: ${errorData.message || response.statusText}`);
         setPopupClass('modal modal-error');
         console.log('Error response:', errorData);
       }
       setPopupVisible(true);
+
     } catch (error) {
+      // Catch network errors or other issues during the fetch request
       console.error('Error during fetch:', error);
       setPopupMessage('Erro ao conectar com o servidor.');
       setPopupClass('modal modal-error');
@@ -97,97 +97,83 @@ function HomePage8() {
     }
   };
 
-  // Handle popup close
+
   const handleClosePopup = () => {
     setPopupVisible(false);
   };
 
   return (
-    <div className="body">
-      <h2 className="center-title">Cadastro de Admin</h2>
+    <div className="cadastra-usuario-page body">
+      <h2 className="center-title">Cadastro de Usuário</h2>
       <div className="container">
         <div className="form-container">
-          <form id="adminForm" onSubmit={handleSubmit}>
-            {/* Name, Email, Phone, CPF, CodEntidade */}
-            <div className="input-container">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Nome"
-                value={userData.name}
-                onChange={handleChange}
-                maxLength="50"
-                required
-              />
-            </div>
-            <div className="input-container">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value={userData.email}
-                onChange={handleChange}
-                maxLength="50"
-                required
-              />
-            </div>
-            <div className="input-container">
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                placeholder="Telefone"
-                value={userData.phone}
-                onChange={handleChange}
-                maxLength="15"
-                required
-              />
-            </div>
-            <div className="input-container">
-              <input
-                type="text"
-                id="cpf"
-                name="cpf"
-                placeholder="CPF"
-                value={userData.cpf}
-                onChange={handleChange}
-                maxLength="11"
-                required
-              />
-            </div>
-            
-            {/* CodEntidade Field */}
-            <div className="input-container">
-              <input
-                type="text"
-                id="codEntidade"
-                name="codEntidade"
-                placeholder="Código da Entidade"
-                value={userData.codEntidade}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {/* Role Dropdown */}
-            <div className="input-container">
-              <label htmlFor="role">Função</label>
-              <select
-                id="role"
-                name="role"
-                value={userData.role}
-                onChange={handleChange}
-                required
-              >
-                <option value="adminCd">Admin CD</option>
-                <option value="superadmin">Super Admin</option>
-                <option value="adminAbrigo">Admin Abrigo</option>
-              </select>
+          <form id="userForm" onSubmit={handleSubmit}>
+            {/* <!-- Basic Info Section --> */}
+            <div className="basic-info-container">
+              <h3>Info</h3>
+              <div className="input-container">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Nome"
+                  value={userData.name}
+                  onChange={handleChange}
+                  maxLength="50"
+                  required
+                />
+              </div>
+              <div className="input-container">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  value={userData.email}
+                  onChange={handleChange}
+                  maxLength="50"
+                  required
+                />
+              </div>
+              <div className="input-container">
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  placeholder="Telefone"
+                  value={userData.phone}
+                  onChange={handleChange}
+                  maxLength="15"
+                  required
+                />
+              </div>
+              <div className="input-container">
+                <input
+                  type="text"
+                  id="cpf"
+                  name="cpf"
+                  placeholder="CPF"
+                  value={userData.cpf}
+                  onChange={handleChange}
+                  maxLength="11"
+                  required
+                />
+              </div>
+              <div className="input-container">
+                <input
+                  type="text"
+                  id="codEntidade"
+                  name="codEntidade"
+                  placeholder="Código da Entidade"
+                  value={userData.codEntidade}
+                  onChange={handleChange}
+                  maxLength="10"
+                  required
+                />
+              </div>
             </div>
 
-            {/* Address Section */}
+            {/* <!-- Address Section --> */}
             <div className="address-box">
               <h3>Endereço</h3>
               <div className="input-container">
@@ -263,18 +249,15 @@ function HomePage8() {
               </div>
             </div>
 
-            {/* Buttons */}
+           
             <div className="button-container">
-              <button
-                type="button"
-                className="back-button"
-                onClick={() => window.location.href = 'index.html'}
-              >
+              <button type="button" className="back-button" onClick={() => window.location.href = 'index.html'}>
                 Voltar
               </button>
               <button type="submit" className="register-button">Cadastrar</button>
             </div>
           </form>
+
 
           {/* Popup logic */}
           {popupVisible && (
@@ -293,7 +276,8 @@ function HomePage8() {
         <div className="modal-overlay" onClick={handleClosePopup}></div>
       )}
     </div>
+
   );
 }
 
-export default HomePage8;
+export default HomePage7;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';  // Import axios for API calls
+import axios from 'axios';  
 import './views/pesquisar_usuarios.css';
 
 function HomePage10() {
@@ -32,7 +32,7 @@ function HomePage10() {
 
       if (isEmptySearch) {
         console.log('Fetching all users since the search is empty.');
-        response = await axios.get(`/v1/users/`);  // Fetch all users if no search query
+        response = await axios.get('/v1/users/');  // Using relative URL which the proxy will intercept
       } else {
         console.log('Building search parameters...');
         const searchParams = new URLSearchParams();
@@ -44,7 +44,7 @@ function HomePage10() {
         if (query.email) searchParams.append('email', query.email);
 
         console.log('Search parameters:', searchParams.toString());
-        response = await axios.get(`/v1/users/?${searchParams.toString()}`);
+        response = await axios.get(`/v1/users/?${searchParams.toString()}`);  // Proxy will handle this
       }
 
       console.log('Users fetched:', response.data);  // Log the fetched users
@@ -74,8 +74,8 @@ function HomePage10() {
     console.log('Delete user initiated for ID:', userId);  // Log the delete operation
 
     try {
-      // Send DELETE request to backend
-      await axios.delete(`/v1/users/${userId}`);
+      // Send DELETE request to backend (proxy will intercept this)
+      await axios.delete(`/v1/users/${userId}`);  
       
       console.log('User deleted successfully:', userId);  // Log successful deletion
       // On success, remove the user from the filtered list (optimistic UI update)

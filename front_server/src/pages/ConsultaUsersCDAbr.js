@@ -13,7 +13,6 @@ function HomePage9() {
   const searchUsers = async (event) => {
     event.preventDefault();
 
-    
     if (!query || !queryCOD) {
       alert("Por favor, preencha ambos os campos.");
       return;
@@ -23,7 +22,7 @@ function HomePage9() {
     setError(null);
 
     try {
-     
+      // This request will be proxied by the middleware to the backend
       const response = await axios.get(`/v1/users/${query.toLowerCase()}/${queryCOD.toUpperCase()}`);
       const results = response.data;
 

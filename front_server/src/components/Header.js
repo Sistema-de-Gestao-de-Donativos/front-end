@@ -19,9 +19,9 @@ function Header() {
             </ul>
         </nav>
             </header>
-            <div className="logo-container">
+            {/* <div className="logo-container">
             <img src={logo} alt="Logo" className="logo" />
-        </div>
+        </div> */}
         </div>
     );
 }

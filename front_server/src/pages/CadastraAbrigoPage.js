@@ -23,11 +23,11 @@ function CadastraAbrigoPage() {
         phone: '',
         email: ''
     });
-    
+
     // Handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-    
+
         if (name.startsWith('address.')) {
             // For nested address fields, extract the field name after 'address.'
             const field = name.split('.')[1];
@@ -46,9 +46,9 @@ function CadastraAbrigoPage() {
             }));
         }
     };
-    
-    
-    
+
+
+
     // Handle form submission
     // const handleSubmit = (e) => {
     //     e.preventDefault();
@@ -62,23 +62,23 @@ function CadastraAbrigoPage() {
     //     }
 
     //      // Clear the form data after submission
-            // setFormData({
-            //     name: '',
-            //     address: {
-            //         city: '',
-            //         country: '',
-            //         neighborhood: '',
-            //         number: '',
-            //         state: '',
-            //         street: '',
-            //     },
-            //     phone: '',
-            //     email: ''
-            // });
+    // setFormData({
+    //     name: '',
+    //     address: {
+    //         city: '',
+    //         country: '',
+    //         neighborhood: '',
+    //         number: '',
+    //         state: '',
+    //         street: '',
+    //     },
+    //     phone: '',
+    //     email: ''
+    // });
     // }; 
 
 
-    // Handle Submit usando metodo POST 
+    // Handle Submit using POST method
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -89,13 +89,13 @@ function CadastraAbrigoPage() {
         }
 
         try {
-            // Sending POST request to the API endpoint
-            const response = await fetch('http://localhost:8080/v1/abrigos', {
+            // Sending POST request to the proxied endpoint
+            const response = await fetch('/v1/abrigos', { // Use the proxy endpoint
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData) // Convert form data to JSON
+                body: JSON.stringify(formData), // Convert form data to JSON
             });
 
             // Handle the response
@@ -126,9 +126,10 @@ function CadastraAbrigoPage() {
                 street: '',
             },
             phone: '',
-            email: ''
+            email: '',
         });
     };
+
 
     // Handle modal close
     const handleClose = () => {
@@ -136,10 +137,10 @@ function CadastraAbrigoPage() {
     };
 
     return (
-        <main>
+        <main className='cadastra-abrigo-page'>
             <Header />
             <div className="logo-container">
-                    <img src={logo} alt="Logo" className="logo" />
+                <img src={logo} alt="Logo" className="logo" />
             </div>
             <h2>Cadastro de Abrigo</h2>
 

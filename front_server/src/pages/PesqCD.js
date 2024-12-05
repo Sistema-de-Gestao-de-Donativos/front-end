@@ -23,48 +23,54 @@ const PesqCD = () => {
     // Fetch CD data from backend based on search query
     useEffect(() => {
         const fetchFilteredCDs = async () => {
-            let queryParams = new URLSearchParams();
-
-            // If either code or name query is filled, append to query parameters
-            if (codQuery) queryParams.append('codCD', codQuery);
-            if (nameQuery) queryParams.append('nameCD', nameQuery);
-
             try {
-                // If query params are empty, fetch all CDs, otherwise fetch with filters
-                const url = queryParams.toString() 
-                    ? `http://localhost:8081/v1/cds?${queryParams.toString()}` 
-                    : 'http://localhost:8081/v1/cds'; // Fetch all CDs if no filters are provided
-                
-                const response = await fetch(url);
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('Fetched data:', data); // Debugging output
-                    
-                    if (Array.isArray(data)) {
-                        setSubmissions(data); // Store the fetched data (can be filtered or full list)
-                    } else {
-                        setSubmissions([data]); // If a single item is returned, make it an array
-                    }
+                // Build query parameters
+                const queryParams = new URLSearchParams();
+                if (codQuery) queryParams.append('codCD', codQuery);
+                if (nameQuery) queryParams.append('nameCD', nameQuery);
 
-                    if (data.length === 0) {
-                        showModal("No results found");  // Show modal if no results found
-                    } else {
-                        hideModal();  // Hide modal if results are found
-                    }
+                // Determine URL based on query presence
+                const url = queryParams.toString()
+                    ? `/v1/cds?${queryParams.toString()}`  // Filtered data
+                    : '/v1/cds';                          // All data
+
+                // Fetch data from the backend via proxy
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    // Handle server errors
+                    console.error(`Error: ${response.statusText}`);
+                    showModal("Failed to fetch CD data from the server.");
+                    return;
+                }
+
+                // Parse and process the response data
+                const data = await response.json();
+                console.log('Fetched data:', data); // Debugging output
+
+                if (Array.isArray(data)) {
+                    setSubmissions(data); // Store fetched list (array)
                 } else {
-                    showModal("Error fetching CDs");
+                    setSubmissions([data]); // Handle single-item response
+                }
+
+                // Show modal if no results are returned
+                if (Array.isArray(data) && data.length === 0) {
+                    showModal("No results found.");
+                } else {
+                    hideModal(); // Hide modal if results are found
                 }
             } catch (error) {
+                // Handle network or other unexpected errors
                 console.error('Error fetching CDs:', error);
-                showModal("Error fetching data from the server.");
+                showModal("An error occurred while fetching data.");
             }
         };
 
-        // Trigger the fetch when either codQuery or nameQuery changes
+        // Trigger fetch when codQuery or nameQuery changes
         fetchFilteredCDs();
+    }, [codQuery, nameQuery, showModal, hideModal]); 
 
-    }, [codQuery, nameQuery, showModal, hideModal]); // Run the effect when search parameters change
 
     // Handle search button click
     const handleSearchClick = () => {
