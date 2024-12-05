@@ -25,7 +25,7 @@ function LoginPage() {
 
         // cloud
         const url = "http://34.193.7.217:8085/v1/users/authenticate";
-        
+
         let credential = credentialResponse.credential;
 
         try {
@@ -40,7 +40,7 @@ function LoginPage() {
                     "accept": "application/json" 
                 },
                 body: ""
-            });
+            }); 
     
             if (!response.ok) {
                 throw new Error(`Erro na autenticação: ${response.statusText}`);
