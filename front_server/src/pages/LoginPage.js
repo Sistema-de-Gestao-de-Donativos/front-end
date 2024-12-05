@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import {jwtDecode} from 'jwt-decode';
 import logo from '../components/logo.png';
 import './views/loginPage.css';
 
@@ -21,10 +20,6 @@ function LoginPage() {
 
     async function handleAutorization(credentialResponse) {
 
-        const decodedToken = jwtDecode(credentialResponse.credential);
-        console.log(decodedToken);
-
-
         // local
         // const url = "http://localhost:8000/v1";  // url da api de autenticacao
 
@@ -40,8 +35,8 @@ function LoginPage() {
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${credential}`, 
+                    "Content-Type": "application/json",
                     "accept": "application/json" 
                 },
                 body: ""
