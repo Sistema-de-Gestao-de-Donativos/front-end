@@ -5,7 +5,7 @@ Para instalar as dependências:
 npm install
 ```
 
-Para executar o servidor de front-end:
+Para executar o servidor de front-end (em modo dev):
 ```bash
 npm start
 ```
@@ -20,3 +20,8 @@ Precisamos fazer o front baseado em **HTTPS, não HTTP**!
 - Colocar componentes reutilizáveis entre telas na pasta `src/components`.
 - Colocar arquivos estáticos (arquivos HTML, CSS, imagens etc.) na pasta `public`.
 - O ponto de entrada do projeto é o arquivo `src/index.js`.
+
+Usar o comando abaixo para usar o proxy desejado em producao (middleware)
+```bash
+npm run build
+```

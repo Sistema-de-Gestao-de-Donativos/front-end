@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useFormContext } from './FormContext';
 import { useModalContext } from './ModalContext';
 import Header from '../components/Header';
-import '../styles/styleCadastraAbrigo.css'; // Import the CSS file
+import '../pages/views/cadastraAbrigo.css'; // Import the CSS file
+import logo from '../components/logo.png'
 
 function CadastraAbrigoPage() {
     const { addSubmission, isDuplicateSubmission } = useFormContext();
@@ -11,12 +12,14 @@ function CadastraAbrigoPage() {
     // State for form fields
     const [formData, setFormData] = useState({
         name: '',
-        country: '',
-        state: '',
-        city: '',
-        neighborhood: '',
-        street: '',
-        number: '',
+        address: {
+            city: '',
+            country: '',
+            neighborhood: '',
+            number: '',
+            state: '',
+            street: '',
+        },
         phone: '',
         email: ''
     });
@@ -24,37 +27,109 @@ function CadastraAbrigoPage() {
     // Handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+
+        if (name.startsWith('address.')) {
+            // For nested address fields, extract the field name after 'address.'
+            const field = name.split('.')[1];
+            setFormData((prevData) => ({
+                ...prevData,
+                address: {
+                    ...prevData.address,
+                    [field]: value
+                }
+            }));
+        } else {
+            // For top-level fields 
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
     };
 
+
+
     // Handle form submission
-    const handleSubmit = (e) => {
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     // Check for duplicate entries using context
+    //     if (isDuplicateSubmission(formData)) {
+    //         showModal('Duplicate entry detected!');
+    //     } else {
+    //         addSubmission(formData); // Add the new submission
+    //         showModal('Submission successful!');
+    //     }
+
+    //      // Clear the form data after submission
+    // setFormData({
+    //     name: '',
+    //     address: {
+    //         city: '',
+    //         country: '',
+    //         neighborhood: '',
+    //         number: '',
+    //         state: '',
+    //         street: '',
+    //     },
+    //     phone: '',
+    //     email: ''
+    // });
+    // }; 
+
+
+    // Handle Submit using POST method
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Check for duplicate entries using context
         if (isDuplicateSubmission(formData)) {
             showModal('Duplicate entry detected!');
-        } else {
-            addSubmission(formData); // Add the new submission
-            showModal('Submission successful!');
+            return;
+        }
+
+        try {
+            // Sending POST request to the proxied endpoint
+            const response = await fetch('/v1/abrigos', { // Use the proxy endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData), // Convert form data to JSON
+            });
+
+            // Handle the response
+            if (response.ok) {
+                const result = await response.json();
+                addSubmission(result); // Add the new submission to context
+                showModal('Submission successful!'); // Show success modal
+            } else {
+                // Handle errors returned by the API
+                const errorData = await response.json();
+                showModal(`Error: ${errorData.error || 'Something went wrong!'}`);
+            }
+        } catch (error) {
+            // Handle network or unexpected errors
+            console.error('Error submitting form:', error);
+            showModal('Network error or server is unavailable.');
         }
 
         // Clear the form data after submission
         setFormData({
             name: '',
-            country: '',
-            state: '',
-            city: '',
-            neighborhood: '',
-            street: '',
-            number: '',
+            address: {
+                city: '',
+                country: '',
+                neighborhood: '',
+                number: '',
+                state: '',
+                street: '',
+            },
             phone: '',
-            email: ''
+            email: '',
         });
     };
+
 
     // Handle modal close
     const handleClose = () => {
@@ -62,9 +137,11 @@ function CadastraAbrigoPage() {
     };
 
     return (
-        <main>
+        <main className='cadastra-abrigo-page'>
             <Header />
-            <h1>SGDRS</h1>
+            <div className="logo-container">
+                <img src={logo} alt="Logo" className="logo" />
+            </div>
             <h2>Cadastro de Abrigo</h2>
 
             {/* Form to register a new Abrigo */}
@@ -86,8 +163,8 @@ function CadastraAbrigoPage() {
                     <input
                         type="text"
                         id="country"
-                        name="country"
-                        value={formData.country}
+                        name="address.country"
+                        value={formData.address.country}
                         onChange={handleInputChange}
                         required
                         maxLength={50}
@@ -98,8 +175,8 @@ function CadastraAbrigoPage() {
                     <input
                         type="text"
                         id="state"
-                        name="state"
-                        value={formData.state}
+                        name="address.state"
+                        value={formData.address.state}
                         onChange={handleInputChange}
                         required
                         maxLength={50}
@@ -110,8 +187,8 @@ function CadastraAbrigoPage() {
                     <input
                         type="text"
                         id="city"
-                        name="city"
-                        value={formData.city}
+                        name="address.city"
+                        value={formData.address.city}
                         onChange={handleInputChange}
                         required
                         maxLength={50}
@@ -122,8 +199,8 @@ function CadastraAbrigoPage() {
                     <input
                         type="text"
                         id="neighborhood"
-                        name="neighborhood"
-                        value={formData.neighborhood}
+                        name="address.neighborhood"
+                        value={formData.address.neighborhood}
                         onChange={handleInputChange}
                         required
                         maxLength={50}
@@ -134,8 +211,8 @@ function CadastraAbrigoPage() {
                     <input
                         type="text"
                         id="street"
-                        name="street"
-                        value={formData.street}
+                        name="address.street"
+                        value={formData.address.street}
                         onChange={handleInputChange}
                         required
                         maxLength={50}
@@ -146,10 +223,11 @@ function CadastraAbrigoPage() {
                     <input
                         type="text"
                         id="number"
-                        name="number"
-                        value={formData.number}
+                        name="address.number"
+                        value={formData.address.number}
                         onChange={handleInputChange}
                         required
+                        maxLength={50}
                     />
                 </div>
                 <div className="form-group">
@@ -183,7 +261,7 @@ function CadastraAbrigoPage() {
             {isModalVisible && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <h2>{modalMessage === 'Submission successful!' ? 'Success' : 'Duplicate'}</h2>
+                        <h2>{modalMessage === 'Submission successful!' ? 'Success' : 'Error'}</h2>
                         <p>{modalMessage}</p>
                         <button onClick={handleClose}>OK</button>
                     </div>

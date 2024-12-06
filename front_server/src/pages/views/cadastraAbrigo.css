@@ -1,0 +1,110 @@
+/* Main container styles */
+.cadastra-abrigo-page main {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Heading styles */
+.cadastra-abrigo-page h1 {
+    color: #0066cc;
+    margin-top: 20px;
+}
+
+.cadastra-abrigo-page h2 {
+    margin: 20px;
+}
+
+/* Shared form container styles for both pages */
+.cadastra-abrigo-page .form-container, .cadastra-abrigo-page .search-bar {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px; /* Increased width to accommodate two columns */
+    text-align: left;
+}
+
+/* Form field styling */
+.cadastra-abrigo-page .form-container {
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+    grid-template-rows: 1fr auto; /* Ensure the form fields take space and the button is at the bottom */
+    gap: 20px; /* Gap between the columns */
+    width: 80%;
+    max-width: 800px;
+    text-align: left;
+}
+
+/* Form group styling for even distribution */
+.cadastra-abrigo-page .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; /* Ensure full width in the grid item */
+}
+
+.cadastra-abrigo-page .form-group label {
+    margin-bottom: 4px; /* Space between label and input */
+    font-size: 0.9rem; /* Smaller font size */
+}
+
+.cadastra-abrigo-page .form-group input {
+    padding: 8px; /* Reduced padding for compact input fields */
+    width: 100%;
+    max-width: 100%; /* Ensure inputs take up full width of their grid cell */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem; /* Slightly smaller font for inputs */
+}
+
+/* Submit button for Cadastra */
+.cadastra-abrigo-page .submit-button {
+    padding: 8px 15px; /* Reduced padding */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    margin-top: 15px;
+    grid-column: span 2; /* Make button span across both columns */
+    justify-self: center; /* Center the button horizontally */
+    align-self: end; /* Position the button at the bottom of the form */
+}
+
+/* Shared button hover effects */
+.cadastra-abrigo-page .search-bar button:hover, .cadastra-abrigo-page .submit-button:hover, .cadastra-abrigo-page .back-button:hover {
+    background-color: #0056b3;
+}
+
+/* Submission status message */
+.cadastra-abrigo-page .submission-status {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Back button for both pages */
+.cadastra-abrigo-page .back-button {
+    margin-top: 20px;
+}
+
+/* Popup message */
+.cadastra-abrigo-page .popup {
+    top: 50%;
+    left: 50%;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    text-align: center;
+}
+
+/* Mobile responsiveness - stack form fields vertically on smaller screens */
+@media (max-width: 768px) {
+    .cadastra-abrigo-page .form-container {
+        grid-template-columns: 1fr; /* Switch to single column on smaller screens */
+    }
+}

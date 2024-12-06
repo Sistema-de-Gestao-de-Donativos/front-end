@@ -1,0 +1,97 @@
+/* Container specific to Doações Page */
+.doacoes-container {
+    max-width: 600px;
+    width: 100%; /* Responsive: adjusts to screen size */
+    margin: 20px auto;
+    /* padding: 20px; */
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Align items horizontally */
+    justify-content: center; /* Align items vertically */
+    width: 100%; /* Ensure it takes full width of the parent */
+}
+
+.form-info input{
+    width: 25%;
+}
+
+/* Form Inputs inside Doações Page */
+.doacoes-container input {
+    width: 90%; /* Responsive input width */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Buttons inside Doações Page */
+.doacoes-container button {
+    background-color: #8ed1fc;
+    color: #000000;
+    padding: 10px 20px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.doacoes-container button:hover {
+    background-color: #6bbce2; /* Slightly darker shade on hover */
+}
+
+/* Unordered List inside Doações Page */
+.doacoes-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.doacoes-container li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: #f8f8f8; /* Subtle background for list items */
+}
+
+/* Headings specific to Doações Page */
+.doacoes-container h1, .doacoes-container h2, .doacoes-container h3 {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.form-doacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Align items horizontally */
+    justify-content: center; /* Align items vertically */
+    width: 100%; /* Ensure it takes full width of the parent */
+    height: 10%;
+}
+
+.add-item{
+    width: 50%;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .doacoes-container {
+        padding: 15px;
+    }
+
+    .doacoes-container input, .doacoes-container button {
+        font-size: 0.9rem; /* Slightly smaller text on smaller screens */
+    }
+
+    .doacoes-container button {
+        padding: 8px 15px;
+    }
+}

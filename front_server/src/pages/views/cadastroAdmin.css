@@ -1,4 +1,4 @@
-.body {
+.homepage8-body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #ffffff;
@@ -7,22 +7,23 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 10px; /* Reduced padding */
 }
 
-header {
+.homepage8-body header {
   width: 100%;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.logo {
-  max-width: 150px; 
+.homepage8-body .logo {
+  max-width: 150px;
   height: auto;
 }
 
-.container {
+.homepage8-body .container {
   background-color: #ffffff;
-  padding: 20px;
+  padding: 15px; /* Reduced padding */
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -30,44 +31,61 @@ header {
   text-align: center;
 }
 
-.form-container {
+.homepage8-body .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 120%; /* Ensure it spans the entire container width */
+  max-height: 500px; /* Limiting the maximum height */
+  overflow-y: auto; /* Allow scrolling if content exceeds max-height */
 }
 
-.input-container {
-  margin-bottom: 15px;
-  width: 100%; 
+.homepage8-body .input-container {
+  margin-bottom: 10px; /* Reduced space between inputs */
+  width: 100%;
 }
 
-.input-container input {
-  padding: 10px;
+.homepage8-body .input-container input,
+.homepage8-body .input-container select {
+  padding: 8px; /* Reduced padding for inputs */
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size for compactness */
 }
 
-.button-container {
+.homepage8-body .input-container label {
+  font-size: 14px; /* Smaller label text for compactness */
+  margin-bottom: 5px; /* Reduce space between label and input */
+}
+
+.homepage8-body .button-container {
+  display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 15px; /* Reduced margin between buttons */
 }
 
-.register-button,
-.back-button {
+.homepage8-body .register-button,
+.homepage8-body .back-button {
   flex: 1;
-  padding: 10px 20px;
+  padding: 10px 15px; /* Adjusted button padding */
   border: 1px solid #000000;
   border-radius: 3px;
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size for buttons */
   cursor: pointer;
   background-color: #8ed1fc;
   color: #000000;
   transition: background-color 0.3s ease;
 }
 
-.modal {
+.homepage8-body .register-button:hover,
+.homepage8-body .back-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.homepage8-body .modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -79,7 +97,7 @@ header {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.homepage8-body .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -90,37 +108,38 @@ header {
   position: relative;
 }
 
-.modal-success .header {
+.homepage8-body .modal-success .header {
   background-color: #4CAF50;
 }
 
-.modal-error .header {
+.homepage8-body .modal-error .header {
   background-color: #f44336;
 }
 
-.header {
+.homepage8-body .header {
   height: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   width: 100%;
 }
 
-.close {
+.homepage8-body .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.homepage8-body .close:hover,
+.homepage8-body .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
-.center-title {
+.homepage8-body .center-title {
   text-align: center;
   position: relative;
   top: 20px;
+  margin-bottom: 10px; /* Reduced margin below title */
 }
