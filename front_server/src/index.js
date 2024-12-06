@@ -5,7 +5,7 @@ import { ModalProvider } from './pages/ModalContext';
 import { FormProvider } from './pages/FormContext';
 import NavBar from './components/NavBar';
 
-// Import HomePages
+
 import HomePage from './pages/MenuCD'; // no header
 import HomePage3 from './pages/MenuVol'; // header 1
 import HomePage4 from './pages/MenuAdmCD'; // header 2
@@ -30,12 +30,14 @@ import HomePage10 from './pages/ConsultaUsers'; // header 1
 import HomePage2 from './pages/ConsultaProduto'; // no header
 
 
+
 // Import Headers
 import Header from './components/Header'; // Default header
 import Header1 from './components/Header1';
 import Header2 from './components/Header2';
 import Header3 from './components/Header3';
 import Header4 from './components/Header4';
+
 
 // Configuration for HomePages and Headers
 const homePages = [
@@ -56,6 +58,9 @@ const otherRoutes = [
     { path: "/cadastracd", element: <CadastraCD />, header: <Header /> },
     { path: "/pesquisaAbrigo", element: <PesquisaAbrigoPage />, header: <Header />},
     { path: "/cadastraAbrigo", element: <CadastraAbrigoPage />, header: <Header />},
+
+    { path: "/consultaEstoque", element: <ConsultaEstoque />, header: <Header />},
+
     { path: "/meuspedidos", element: <MeusPedidos />, header: null },
     { path: "/novopedido", element: <NovoPedido />, header: null },
     { path: "/doacoes", element: <Doacoes />, header: null },
@@ -66,6 +71,7 @@ const otherRoutes = [
     { path: "/pesqusercdabr", element: <HomePage9 />, header: null },
     { path: "/pesquser", element: <HomePage10 />, header: null },
     { path: "/pesqprod", element: <HomePage2 />, header: null },
+
 ];
 
 // App Layout Component to manage headers dynamically
@@ -81,7 +87,8 @@ const AppLayout = () => {
 
     return (
         <>
-            <NavBar/> 
+            <NavBar/>
+
             {HeaderComponent && <HeaderComponent.type />}
             <Routes>
                 {/* Map all home page routes */}
@@ -95,7 +102,10 @@ const AppLayout = () => {
                 ))}
 
                 {/* Fallback route */}
-                <Route path="*" element={<Navigate to="/home6" replace />} />
+
+                <Route path="*" element={<Navigate to="/" replace />} />
+
+
             </Routes>
         </>
     );
